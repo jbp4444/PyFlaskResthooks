@@ -1,0 +1,4 @@
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteRule ^(.*)$ dispatch.py [DPI,L,E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+</IfModule>
