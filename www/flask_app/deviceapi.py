@@ -1,5 +1,25 @@
-#
-#
+"""
+The flask application package.
+
+Copyright (C) 2017 - John Pormann, Duke University Libraries
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
+documentation files (the "Software"), to deal in the Software without restriction, including without limitation
+the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software,
+and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions
+of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED
+TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF
+CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+DEALINGS IN THE SOFTWARE.
+
+https://opensource.org/licenses/MIT
+
+"""
 
 import uuid
 import time
@@ -96,12 +116,13 @@ def claim_device_code( in_code ):
 		rtn['info'] = 'database error'
 	return json.jsonify(rtn)
 
+
+# TODO: should refactor the next 2 funcs to use same work-function
 @app.route( BASEPATH+'/data/<in_event>', methods=['POST'] )
 @auth_required( AUTHLVL.DEVICE )
 def push_data( in_event ):
 	rtn = { 'info':'event name not recognized', 'status':'error' }
 	if( in_event in app.config['EVENT_LIST'] ):
-		#authuser = request.authorization['username']
 		authuser = g.token_userid
 		app.logger.info( 'data-push '+in_event+' on behalf of userid='+authuser )
 		# TODO: this changes rtn from hash to list!
@@ -112,4 +133,30 @@ def push_data( in_event ):
 				rtn.append( { 'subid':row['subid'], 'userid':row['userid'], 'target_url':row['target_url'] } )
 		except:
 			rtn['info'] = 'database error'
+	return json.jsonify(rtn)
+
+@app.route( BASEPATH+'/data/', methods=['POST'] )
+@auth_required( AUTHLVL.DEVICE )
+def push_data_general():
+	rtn = { 'info':'unknown error', 'status':'error' }
+	if( 'event' in request.form ):
+		in_event = request.form['event']
+		if( in_event in app.config['EVENT_LIST'] ):
+			data = {}
+			if( 'data' in request.form ):
+				data = request.form['data']
+			authuser = g.token_userid
+			app.logger.info( 'data-push '+in_event+' on behalf of userid='+authuser )
+			# TODO: this changes rtn from hash to list!
+			rtn = []
+			try:
+				dbc = db.get_db()
+				for row in dbc.execute( 'select * from SubsDB where event=? and userid=?', [in_event,authuser] ):
+					rtn.append( { 'subid':row['subid'], 'userid':row['userid'], 'target_url':row['target_url'] } )
+			except:
+				rtn['info'] = 'database error'
+		else:
+			rtn = { 'info':'event name not recognized', 'status':'error' }
+	else:
+		rtn = { 'info':'insufficient data', 'status':'error' }
 	return json.jsonify(rtn)
