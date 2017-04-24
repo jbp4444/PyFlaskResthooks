@@ -21,9 +21,12 @@ https://opensource.org/licenses/MIT
 
 """
 
+import os
 import requests
 
 BASEURL = 'http://localhost:5000/'
+if( 'BASEURL' in os.environ ):
+	BASEURL = os.environ['BASEURL']
 
 #
 # add some subscriptions
@@ -46,6 +49,11 @@ print r4.text
 
 r4j = r4.json()
 
-print "The device can now push data with its token ..."
-r5 = requests.post( BASEURL+'data/buttonpress', headers={'X-Device-Token':r4j['token']} )
+print "The device can now push data with its token, first with post-data ..."
+r5 = requests.post( BASEURL+'data/button', headers={'X-Device-Token':r4j['token']},
+ 	data={'button':'post_data'} )
 print r5.text
+print "... and with json data ..."
+r6 = requests.post( BASEURL+'data/button', headers={'X-Device-Token':r4j['token']},
+ 	json={'button':'json_data'} )
+print r6.text
