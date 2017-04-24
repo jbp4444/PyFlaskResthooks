@@ -1,0 +1,209 @@
+app starting up
+ * Running on http://localhost:5000/ (Press CTRL+C to quit)
+ * Restarting with fsevents reloader
+app starting up
+ * Debugger is active!
+ * Debugger PIN: 169-794-397
+ * Detected change in '/Users/jbp1/web/resthooks/pyhk/www/flask_app/__init__.py', reloading
+ * Restarting with fsevents reloader
+app starting up
+cwd=/Users/jbp1/web/resthooks/pyhk/www
+ * Debugger is active!
+ * Debugger PIN: 169-794-397
+127.0.0.1 - - [20/Apr/2017 14:52:14] "[1m[31mGET / HTTP/1.1[0m" 401 -
+ * Detected change in '/Users/jbp1/web/resthooks/pyhk/www/flask_app/__init__.py', reloading
+ * Restarting with fsevents reloader
+app starting up
+ * Debugger is active!
+ * Debugger PIN: 169-794-397
+127.0.0.1 - - [20/Apr/2017 14:52:53] "[37mGET /help HTTP/1.1[0m" 200 -
+ * Detected change in '/Users/jbp1/web/resthooks/pyhk/www/flask_app/__init__.py', reloading
+ * Restarting with fsevents reloader
+app starting up
+ * Debugger is active!
+ * Debugger PIN: 169-794-397
+auth: userid=003 john:johnjohn::1
+127.0.0.1 - - [20/Apr/2017 15:00:17] "[37mPOST / HTTP/1.1[0m" 200 -
+auth: userid=003 john:johnjohn::1
+127.0.0.1 - - [20/Apr/2017 15:00:17] "[37mPOST / HTTP/1.1[0m" 200 -
+auth: userid=002 oona:oonaoona::3
+127.0.0.1 - - [20/Apr/2017 15:00:17] "[37mPOST / HTTP/1.1[0m" 200 -
+auth: userid=003 john:johnjohn::1
+127.0.0.1 - - [20/Apr/2017 15:00:17] "[37mPOST / HTTP/1.1[0m" 200 -
+auth: userid=003 john:johnjohn::1
+127.0.0.1 - - [20/Apr/2017 15:00:17] "[37mDELETE /97fc28fd25fb11e78e01c8e0eb16d851 HTTP/1.1[0m" 200 -
+auth: userid=003 john:johnjohn::1
+127.0.0.1 - - [20/Apr/2017 15:00:17] "[37mGET /97fc28fd25fb11e78e01c8e0eb16d851 HTTP/1.1[0m" 200 -
+auth: userid=003 john:johnjohn::1
+127.0.0.1 - - [20/Apr/2017 15:00:17] "[37mDELETE /97fc28fd25fb11e78e01c8e0eb16d851 HTTP/1.1[0m" 200 -
+auth: userid=003 john:johnjohn::1
+127.0.0.1 - - [20/Apr/2017 15:00:17] "[37mGET / HTTP/1.1[0m" 200 -
+auth: userid=002 oona:oonaoona::3
+127.0.0.1 - - [20/Apr/2017 15:00:17] "[37mGET /97f5192125fb11e784c8c8e0eb16d851 HTTP/1.1[0m" 200 -
+auth: userid=003 john:johnjohn::1
+127.0.0.1 - - [20/Apr/2017 15:00:17] "[37mGET /event/buttonpress HTTP/1.1[0m" 200 -
+auth: userid=003 john:johnjohn::1
+127.0.0.1 - - [20/Apr/2017 15:01:11] "[37mPOST / HTTP/1.1[0m" 200 -
+auth: userid=003 john:johnjohn::1
+127.0.0.1 - - [20/Apr/2017 15:01:11] "[37mPOST / HTTP/1.1[0m" 200 -
+auth: userid=002 oona:oonaoona::3
+127.0.0.1 - - [20/Apr/2017 15:01:11] "[37mPOST / HTTP/1.1[0m" 200 -
+auth: userid=003 john:johnjohn::1
+127.0.0.1 - - [20/Apr/2017 15:01:11] "[37mPOST / HTTP/1.1[0m" 200 -
+auth: userid=003 john:johnjohn::1
+127.0.0.1 - - [20/Apr/2017 15:01:11] "[37mDELETE /b857d22125fb11e7b9edc8e0eb16d851 HTTP/1.1[0m" 200 -
+auth: userid=003 john:johnjohn::1
+127.0.0.1 - - [20/Apr/2017 15:01:11] "[37mGET /b857d22125fb11e7b9edc8e0eb16d851 HTTP/1.1[0m" 200 -
+auth: userid=003 john:johnjohn::1
+127.0.0.1 - - [20/Apr/2017 15:01:11] "[37mDELETE /b857d22125fb11e7b9edc8e0eb16d851 HTTP/1.1[0m" 200 -
+auth: userid=003 john:johnjohn::1
+127.0.0.1 - - [20/Apr/2017 15:01:11] "[37mGET / HTTP/1.1[0m" 200 -
+auth: userid=003 john:johnjohn::1
+127.0.0.1 - - [20/Apr/2017 15:01:11] "[37mGET /listfull HTTP/1.1[0m" 200 -
+auth: userid=002 oona:oonaoona::3
+127.0.0.1 - - [20/Apr/2017 15:01:11] "[37mGET /b84f255125fb11e7adb7c8e0eb16d851 HTTP/1.1[0m" 200 -
+auth: userid=003 john:johnjohn::1
+127.0.0.1 - - [20/Apr/2017 15:01:11] "[37mGET /event/buttonpress HTTP/1.1[0m" 200 -
+auth: userid=003 john:johnjohn::1
+127.0.0.1 - - [20/Apr/2017 15:03:34] "[37mPOST / HTTP/1.1[0m" 200 -
+auth: userid=003 john:johnjohn::1
+127.0.0.1 - - [20/Apr/2017 15:03:34] "[37mPOST / HTTP/1.1[0m" 200 -
+auth: userid=002 oona:oonaoona::3
+127.0.0.1 - - [20/Apr/2017 15:03:34] "[37mPOST / HTTP/1.1[0m" 200 -
+auth: userid=003 john:johnjohn::1
+127.0.0.1 - - [20/Apr/2017 15:03:34] "[37mPOST / HTTP/1.1[0m" 200 -
+auth: userid=003 john:johnjohn::1
+127.0.0.1 - - [20/Apr/2017 15:03:34] "[37mDELETE /0d50147525fc11e78bc4c8e0eb16d851 HTTP/1.1[0m" 200 -
+auth: userid=003 john:johnjohn::1
+127.0.0.1 - - [20/Apr/2017 15:03:34] "[37mGET /0d50147525fc11e78bc4c8e0eb16d851 HTTP/1.1[0m" 200 -
+auth: userid=003 john:johnjohn::1
+127.0.0.1 - - [20/Apr/2017 15:03:34] "[37mDELETE /0d50147525fc11e78bc4c8e0eb16d851 HTTP/1.1[0m" 200 -
+auth: userid=003 john:johnjohn::1
+127.0.0.1 - - [20/Apr/2017 15:03:34] "[37mGET / HTTP/1.1[0m" 200 -
+auth: userid=003 john:johnjohn::1
+127.0.0.1 - - [20/Apr/2017 15:03:34] "[37mGET /listfull HTTP/1.1[0m" 200 -
+auth: userid=002 oona:oonaoona::3
+127.0.0.1 - - [20/Apr/2017 15:03:34] "[37mGET /0d477bd425fc11e7b413c8e0eb16d851 HTTP/1.1[0m" 200 -
+auth: userid=003 john:johnjohn::1
+127.0.0.1 - - [20/Apr/2017 15:03:34] "[37mPUT /0d477bd425fc11e7b413c8e0eb16d851 HTTP/1.1[0m" 200 -
+auth: userid=003 john:johnjohn::1
+127.0.0.1 - - [20/Apr/2017 15:03:34] "[37mGET /event/buttonpress HTTP/1.1[0m" 200 -
+auth: userid=003 john:johnjohn::1
+127.0.0.1 - - [20/Apr/2017 15:03:54] "[37mPOST / HTTP/1.1[0m" 200 -
+auth: userid=003 john:johnjohn::1
+127.0.0.1 - - [20/Apr/2017 15:03:54] "[37mPOST / HTTP/1.1[0m" 200 -
+auth: userid=002 oona:oonaoona::3
+127.0.0.1 - - [20/Apr/2017 15:03:54] "[37mPOST / HTTP/1.1[0m" 200 -
+auth: userid=003 john:johnjohn::1
+127.0.0.1 - - [20/Apr/2017 15:03:54] "[37mPOST / HTTP/1.1[0m" 200 -
+auth: userid=003 john:johnjohn::1
+127.0.0.1 - - [20/Apr/2017 15:03:54] "[37mDELETE /1988109725fc11e788fbc8e0eb16d851 HTTP/1.1[0m" 200 -
+auth: userid=003 john:johnjohn::1
+127.0.0.1 - - [20/Apr/2017 15:03:54] "[37mGET /1988109725fc11e788fbc8e0eb16d851 HTTP/1.1[0m" 200 -
+auth: userid=003 john:johnjohn::1
+127.0.0.1 - - [20/Apr/2017 15:03:54] "[37mDELETE /1988109725fc11e788fbc8e0eb16d851 HTTP/1.1[0m" 200 -
+auth: userid=003 john:johnjohn::1
+127.0.0.1 - - [20/Apr/2017 15:03:54] "[37mGET / HTTP/1.1[0m" 200 -
+auth: userid=003 john:johnjohn::1
+127.0.0.1 - - [20/Apr/2017 15:03:54] "[37mGET /listfull HTTP/1.1[0m" 200 -
+auth: userid=002 oona:oonaoona::3
+127.0.0.1 - - [20/Apr/2017 15:03:54] "[37mGET /197f6e4725fc11e7b99cc8e0eb16d851 HTTP/1.1[0m" 200 -
+auth: userid=003 john:johnjohn::1
+127.0.0.1 - - [20/Apr/2017 15:03:54] "[37mPUT /197f6e4725fc11e7b99cc8e0eb16d851 HTTP/1.1[0m" 200 -
+auth: userid=003 john:johnjohn::1
+127.0.0.1 - - [20/Apr/2017 15:03:54] "[37mGET /197f6e4725fc11e7b99cc8e0eb16d851 HTTP/1.1[0m" 200 -
+auth: userid=003 john:johnjohn::1
+127.0.0.1 - - [20/Apr/2017 15:03:54] "[37mGET /event/buttonpress HTTP/1.1[0m" 200 -
+127.0.0.1 - - [20/Apr/2017 15:15:57] "[1m[35mPOST /link HTTP/1.1[0m" 500 -
+looking for devcode=abc123
+found userid=
+127.0.0.1 - - [20/Apr/2017 15:15:57] "[37mGET /link/abc123 HTTP/1.1[0m" 200 -
+auth: userid=003 john:johnjohn::1
+127.0.0.1 - - [20/Apr/2017 15:15:57] "[37mGET /activate/abc123 HTTP/1.1[0m" 200 -
+looking for devcode=abc123
+found userid=
+127.0.0.1 - - [20/Apr/2017 15:15:57] "[37mGET /link/abc123 HTTP/1.1[0m" 200 -
+registering dev-code=abc123
+127.0.0.1 - - [20/Apr/2017 15:16:35] "[37mPOST /link/ HTTP/1.1[0m" 200 -
+looking for devcode=abc123
+found userid=_null
+127.0.0.1 - - [20/Apr/2017 15:16:35] "[37mGET /link/abc123 HTTP/1.1[0m" 200 -
+auth: userid=003 john:johnjohn::1
+127.0.0.1 - - [20/Apr/2017 15:16:35] "[37mGET /activate/abc123 HTTP/1.1[0m" 200 -
+looking for devcode=abc123
+found userid=003
+creating new token=df32ab8f25fd11e7bf97c8e0eb16d851
+127.0.0.1 - - [20/Apr/2017 15:16:35] "[37mGET /link/abc123 HTTP/1.1[0m" 200 -
+found auth token:df32ab8f25fd11e7bf97c8e0eb16d851
+token tied to userid=003
+data-push buttonpress on behalf of userid=003
+127.0.0.1 - - [20/Apr/2017 15:16:35] "[37mPOST /data/buttonpress HTTP/1.1[0m" 200 -
+app starting up
+ * Running on http://localhost:5000/ (Press CTRL+C to quit)
+ * Restarting with fsevents reloader
+app starting up
+ * Debugger is active!
+ * Debugger PIN: 169-794-397
+auth: userid=003 baba:babababa::1
+127.0.0.1 - - [20/Apr/2017 15:21:36] "[37mPOST / HTTP/1.1[0m" 200 -
+auth: userid=003 baba:babababa::1
+127.0.0.1 - - [20/Apr/2017 15:21:36] "[37mPOST / HTTP/1.1[0m" 200 -
+auth: userid=002 oona:oonaoona::3
+127.0.0.1 - - [20/Apr/2017 15:21:36] "[37mPOST / HTTP/1.1[0m" 200 -
+auth: userid=003 baba:babababa::1
+127.0.0.1 - - [20/Apr/2017 15:21:36] "[37mPOST / HTTP/1.1[0m" 200 -
+auth: userid=003 baba:babababa::1
+127.0.0.1 - - [20/Apr/2017 15:21:36] "[37mDELETE /924708ca25fe11e7bf48c8e0eb16d851 HTTP/1.1[0m" 200 -
+auth: userid=003 baba:babababa::1
+127.0.0.1 - - [20/Apr/2017 15:21:36] "[37mGET /924708ca25fe11e7bf48c8e0eb16d851 HTTP/1.1[0m" 200 -
+auth: userid=003 baba:babababa::1
+127.0.0.1 - - [20/Apr/2017 15:21:36] "[37mDELETE /924708ca25fe11e7bf48c8e0eb16d851 HTTP/1.1[0m" 200 -
+auth: userid=003 baba:babababa::1
+127.0.0.1 - - [20/Apr/2017 15:21:36] "[37mGET / HTTP/1.1[0m" 200 -
+auth: userid=003 baba:babababa::1
+127.0.0.1 - - [20/Apr/2017 15:21:36] "[37mGET /listfull HTTP/1.1[0m" 200 -
+auth: userid=002 oona:oonaoona::3
+127.0.0.1 - - [20/Apr/2017 15:21:36] "[37mGET /923f076b25fe11e7bcedc8e0eb16d851 HTTP/1.1[0m" 200 -
+auth: userid=003 baba:babababa::1
+127.0.0.1 - - [20/Apr/2017 15:21:36] "[37mPUT /923f076b25fe11e7bcedc8e0eb16d851 HTTP/1.1[0m" 200 -
+auth: userid=003 baba:babababa::1
+127.0.0.1 - - [20/Apr/2017 15:21:36] "[37mGET /923f076b25fe11e7bcedc8e0eb16d851 HTTP/1.1[0m" 200 -
+auth: userid=003 baba:babababa::1
+127.0.0.1 - - [20/Apr/2017 15:21:36] "[37mGET /event/buttonpress HTTP/1.1[0m" 200 -
+auth: userid=001 mossy:mossymossy::7
+127.0.0.1 - - [20/Apr/2017 15:21:57] "[37mGET /admin/devcodes HTTP/1.1[0m" 200 -
+auth: userid=001 mossy:mossymossy::7
+127.0.0.1 - - [20/Apr/2017 15:21:57] "[37mGET /admin/tokens HTTP/1.1[0m" 200 -
+auth: userid=001 mossy:mossymossy::7
+127.0.0.1 - - [20/Apr/2017 15:21:57] "[37mGET /admin/users HTTP/1.1[0m" 200 -
+auth: userid=001 mossy:mossymossy::7
+127.0.0.1 - - [20/Apr/2017 15:21:57] "[37mGET /admin/subs HTTP/1.1[0m" 200 -
+auth: userid=001 mossy:mossymossy::7
+127.0.0.1 - - [20/Apr/2017 15:21:57] "[37mGET /admin/events HTTP/1.1[0m" 200 -
+registering dev-code=abc123
+127.0.0.1 - - [20/Apr/2017 15:22:08] "[37mPOST /link/ HTTP/1.1[0m" 200 -
+looking for devcode=abc123
+found userid=_null
+127.0.0.1 - - [20/Apr/2017 15:22:08] "[37mGET /link/abc123 HTTP/1.1[0m" 200 -
+auth: userid=003 baba:babababa::1
+127.0.0.1 - - [20/Apr/2017 15:22:08] "[37mGET /activate/abc123 HTTP/1.1[0m" 200 -
+looking for devcode=abc123
+found userid=003
+creating new token=a580b7eb25fe11e78e2ec8e0eb16d851
+127.0.0.1 - - [20/Apr/2017 15:22:08] "[37mGET /link/abc123 HTTP/1.1[0m" 200 -
+found auth token:a580b7eb25fe11e78e2ec8e0eb16d851
+token tied to userid=003
+data-push buttonpress on behalf of userid=003
+127.0.0.1 - - [20/Apr/2017 15:22:08] "[37mPOST /data/buttonpress HTTP/1.1[0m" 200 -
+app starting up
+ * Running on http://localhost:5000/ (Press CTRL+C to quit)
+ * Restarting with fsevents reloader
+app starting up
+ * Debugger is active!
+ * Debugger PIN: 169-794-397
+app starting up
+ * Running on http://localhost:5000/ (Press CTRL+C to quit)
+ * Restarting with fsevents reloader
+app starting up
+ * Debugger is active!
+ * Debugger PIN: 169-794-397

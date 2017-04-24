@@ -75,22 +75,35 @@ def get_subs( in_subid ):
 @auth_required( AUTHLVL.USER )
 def new_entry():
 	rtn = { 'info':'unknown error', 'status':'error' }
-	if( ('event' in request.form) and ('target_url' in request.form) ):
-		if( request.form['event'] in app.config['EVENT_LIST'] ):
-			authuser = g.auth_userid
-			new_subid = uuid.uuid1().hex
-			try:
-				dbc = db.get_db()
-				dbc.execute( 'insert into SubsDB values (?,?,?,?)',
-							 [new_subid,authuser,request.form['event'],request.form['target_url']] )
-				dbc.commit()
-				rtn = { 'subid':new_subid,'info':'new subscription created','status':'ok' }
-			except:
-				# throw error code 500?
-				#abort(500)
-				rtn = { 'info':'database error','status':'error' }
-		else:
-			rtn = { 'info':'unknown event name','status':'error' }
+	event = None
+	target_url = None
+	if( request.json != None ):
+		if( 'event' in request.json ):
+			event = request.json['event']
+		if( 'target_url' in request.json ):
+			target_url = request.json['target_url']
+	if( request.form != None ):
+		if( 'event' in request.form ):
+			event = request.form['event']
+		if( 'target_url' in request.form ):
+			target_url = request.form['target_url']
+	if( not event in app.config['EVENT_LIST'] ):
+		# TODO: customize the error to indicate bad event name
+		event = None
+
+	if( (event != None) and (target_url != None) ):
+		authuser = g.auth_userid
+		new_subid = uuid.uuid1().hex
+		try:
+			dbc = db.get_db()
+			dbc.execute( 'insert into SubsDB values (?,?,?,?)',
+						 [new_subid,authuser,event,target_url] )
+			dbc.commit()
+			rtn = { 'subid':new_subid,'info':'new subscription created','status':'ok' }
+		except:
+			# throw error code 500?
+			#abort(500)
+			rtn = { 'info':'database error','status':'error' }
 	else:
 		#abort( 400 )
 		rtn = { 'info':'insufficient information to create new subscription','status':'error' }
@@ -118,19 +131,35 @@ def del_entry( in_subid ):
 @auth_required( AUTHLVL.USER )
 def update_entry( in_subid ):
 	rtn = { 'info':'unknown error', 'status':'error' }
-	if( request.form['event'] in app.config['EVENT_LIST'] ):
+	event = None
+	target_url = None
+	if( request.json != None ):
+		if( 'event' in request.json ):
+			event = request.json['event']
+		if( 'target_url' in request.json ):
+			target_url = request.json['target_url']
+	if( request.form != None ):
+		if( 'event' in request.form ):
+			event = request.form['event']
+		if( 'target_url' in request.form ):
+			target_url = request.form['target_url']
+	if( not event in app.config['EVENT_LIST'] ):
+		# TODO: customize the error to indicate bad event name
+		event = None
+
+	if( (event != None) and (target_url != None) ):
 		authuser = g.auth_userid
 		rtn = {}
 		try:
 			dbc = db.get_db()
 			dbc.execute( 'update SubsDB set event=?, target_url=? where subid=? and userid=?',
-				[request.form['event'],request.form['target_url'],in_subid,authuser] )
+				[event,target_url,in_subid,authuser] )
 			dbc.commit()
 			rtn = { 'subid':in_subid,'status':'ok' }
 		except:
 			rtn = { 'info':'database error','status':'error' }
 	else:
-		rtn = { 'info':'event name not recognized','status':'error' }
+		rtn = { 'info':'insufficient information to update subscription','status':'error' }
 	return json.jsonify(rtn)
 
 @app.route( BASEPATH+'/event', methods=['GET'] )

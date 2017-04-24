@@ -32,7 +32,7 @@ app.config.update( dict(
 	DEBUG = 1,
 	DATABASE = os.path.join(app.root_path,'db.db'),
 	API_KEY = 'foobarbaz',
-	EVENT_LIST = [ 'buttonpress', 'keypress' ],
+	EVENT_LIST = [ 'button', 'key' ],
 	DEVCODE_TIMEOUT = 3600,
 	TOKEN_TIMEOUT = 3600
 ))
@@ -52,8 +52,8 @@ app.logger.info( 'app starting up' )
 # TODO: try to remove the leading path
 #rt_cwd = os.getcwd()
 #app.logger.warning( 'cwd='+rt_cwd )
-#BASEPATH = '/pyhk'
-BASEPATH = ''
+BASEPATH = '/pyhk'
+#BASEPATH = ''
 
 import baseapi
 import api

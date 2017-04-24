@@ -160,3 +160,9 @@ def push_data_general():
 	else:
 		rtn = { 'info':'insufficient data', 'status':'error' }
 	return json.jsonify(rtn)
+
+@app.route( BASEPATH+'/last/', methods=['GET'] )
+@auth_required( AUTHLVL.USER )
+def get_last_event():
+	rtn = [{ 'event':'button', 'button':1, 'timestamp':0 }]
+	return json.jsonify( rtn )
