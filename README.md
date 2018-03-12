@@ -7,15 +7,15 @@ to track the subscriptions, etc. at the server level.
 * www/flask_app contains the main code
 * testing contains some simple python-requests scripts
 * thunkable contains an AIA file suitable for Thunkable or MIT-AppInventor
- * http://thunkable.com/
- * http://appinventor.mit.edu/
+  * http://thunkable.com/
+  * http://appinventor.mit.edu/
 
 With an external subscription service (e.g. Zapier), the service would:
 * Reach out to the "subscribe" end-point (POST to /), with a user's credentials
- * Following Zapier, the server looks for an 'event' and 'target_url'
+  * Following Zapier, the server looks for an 'event' and 'target_url'
 * The server stores that subscription info
 * When the 'event' happens (data is received), the server would make the calls to the target_url's
- * The assumption is that a device would POST data to /data/event and that would initiate the callback to the target_url's
+  * The assumption is that a device would POST data to /data/event and that would initiate the callback to the target_url's
 
 The Thunkable/MIT-AI app models a simple IOT-style interaction:
 * The device generates a random device-code and registers it with the server
