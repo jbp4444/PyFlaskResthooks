@@ -23,7 +23,6 @@ https://opensource.org/licenses/MIT
 
 import uuid
 import time
-import sqlite3
 import requests
 from flask import Flask, request, abort, g, json
 
@@ -37,63 +36,45 @@ from flask_app import app, BASEPATH, db, auth_required, AUTHLVL
 def test_device_token( in_code ):
 	# returns true/false if someone has claimed the device-code
 	# TODO: check that originating IP-addr is same?
-	# TODO: send device-token to the device so it can auth next time
-	rtn = { 'info':'unknown error', 'status':'error' }
-	#rtn['token'] = uuid-token from claim_device_code
-	try:
-		dbc = db.get_db()
-		userid = ''
-		time_created = 0
-		time_now = int(time.time())
-		app.logger.warning( 'looking for devcode='+in_code )
-		for row in dbc.execute( 'select * from DevcodeDB where devcode=?', [in_code] ):
-			userid = row['userid']
-			time_created = row['time_create']
-		app.logger.warning( 'found userid='+userid )
+	rtn = {}
+	time_now = time.time()
+	app.logger.warning( 'looking for devcode='+in_code )
+	dcode = db.Devcode.get_or_none( db.Devcode.devcode==in_code )
+	if( dcode == None ):
+		rtn['info'] = 'no such device-code'
+		rtn['status'] = 'error'
+	else:
+		time_created = dcode.time_create
 		#app.logger.info( 'time='+str(time_now)+'-'+str(time_created)+'='+str(time_now-time_created)+'::'+str(app.config['DEVCODE_TIMEOUT']))
-		if( userid == '' ):
-			rtn['info'] = 'cannot find device-code'
-			rtn['status'] = 'error'
-		elif( userid == '_null' ):
-			rtn['info'] = 'device-code is not claimed'
-			rtn['status'] = 'retry'
-		elif( (time_now-time_created) > app.config['DEVCODE_TIMEOUT'] ):
+		if( (time_now-time_created) > app.config['DEVCODE_TIMEOUT'] ):
 			rtn['info'] = 'device-code has expired'
 			rtn['status'] = 'error'
+			# TODO: delete this devcode
 		else:
-			new_token = uuid.uuid1().hex
-			time_now = int(time.time())
-			app.logger.warning( 'creating new token='+new_token )
-			dbc.execute( 'insert into TokenDB (token,userid,time_create,device_name) values (?,?,?,?)', [new_token,userid,time_now,'default'])
-			dbc.execute( 'delete from DevcodeDB where devcode=?', [in_code] )
-			dbc.commit()
-			rtn['info'] = 'devcode was claimed by a user'
-			rtn['token'] = new_token
-			rtn['status'] = 'ok'
-	except sqlite3.Error as e:
-		app.logger.warning( 'db-error: '+str(e) )
-		rtn['info'] = 'error in database query'
-		rtn['status'] = 'error'
+			rtn['info'] = 'device-code is unclaimed'
+			rtn['status'] = 'retry'
 	return json.jsonify(rtn)
 
 @app.route( BASEPATH+'/link/', methods=['POST'] )
 def reg_device_code():
-	rtn = { 'info':'code was not registered', 'status':'error' }
+	rtn = {}
 	if( 'authcode' in request.form ):
 		# TODO: store originaing IP-addr in database too?
-		authcode = request.form['authcode']
-		time_now = int(time.time())
-		app.logger.warning( 'registering dev-code='+authcode )
-		# TODO: check for device-code already in db
-		try:
-			dbc = db.get_db()
-			dbc.execute( 'insert into DevcodeDB (devcode,claimed,userid,time_create) values (?,?,?,?) ', [authcode,'N','_null',time_now] )
-			dbc.commit()
-			rtn['info'] = 'code was registered'
+		in_devcode = request.form['authcode']
+		time_now = time.time()
+		app.logger.warning( 'registering dev-code='+in_devcode )
+		dcode = db.Devcode.get_or_none( db.Devcode.devcode==in_devcode )
+		if( dcode != None ):
+			rtn['info'] = 'device-code already in use'
+			rtn['status'] = 'retry'
+		else:
+			dcode = db.Devcode( devcode=in_devcode, time_create=time_now )
+			dcode.save()
+			rtn['info'] = 'device-code was registered'
 			rtn['status'] = 'ok'
-		except sqlite3.Error as e:
-			app.logger.warning( 'db-error: '+str(e) )
-			rtn['info'] = 'database error'
+	else:
+		rtn['info'] = 'no device-code given'
+		rtn['status'] = 'error'
 	return json.jsonify(rtn)
 
 @app.route( BASEPATH+'/activate/<in_code>', methods=['GET'] )
@@ -101,37 +82,26 @@ def reg_device_code():
 def claim_device_code( in_code ):
 	# a user is claiming a device-code
 	# TODO: allow user to name the device that will be attached to this device-key
-	rtn = { 'info':'could not find device-code', 'status':'error' }
-	try:
-		dbc = db.get_db()
-		flag = False
-		for row in dbc.execute( 'select * from DevcodeDB where devcode=?', [in_code] ):
-			flag = True
-		if( flag ):
-			dbc.execute( 'update DevcodeDB set claimed=?, userid=? where devcode=?', ['Y',g.auth_userid,in_code] )
-			dbc.commit()
-			rtn['info'] = 'device-code was claimed'
+	rtn = {}
+	time_now = time.time()
+	dcode = db.Devcode.get_or_none( db.Devcode.devcode==in_code )
+	if( dcode != None ):
+		time_created = dcode.time_create
+		#app.logger.info( 'time='+str(time_now)+'-'+str(time_created)+'='+str(time_now-time_created)+'::'+str(app.config['DEVCODE_TIMEOUT']))
+		if( (time_now-time_created) > app.config['DEVCODE_TIMEOUT'] ):
+			rtn['info'] = 'device-code has expired'
+			rtn['status'] = 'error'
+			# TODO: delete the devcode from db
+		else:
+			# TODO: this should be a transaction pair
+			dcode.delete_instance()
+			new_uuid = uuid.uuid1().hex
+			token = db.Token( token=new_uuid, user=g.auth_user, device_name="foo", time_create=time_now )
+			token.save()
+			rtn['info'] = 'device-code has been claimed'
+			rtn['token'] = new_uuid
 			rtn['status'] = 'ok'
-	except sqlite3.Error as e:
-		app.logger.warning( 'db-error: '+str(e) )
-		rtn['info'] = 'database error'
+	else:
+		rtn['info'] = 'invalid device-code'
+		rtn['status'] = 'error'
 	return json.jsonify(rtn)
-
-#
-# push the data to the subscription service (e.g. Zapier)
-def _int_push_data( a_event, a_user, a_data ):
-	app.logger.info( 'data-push '+a_event+' on behalf of userid='+a_user )
-	# TODO: this changes rtn from hash to list!
-	rtn = []
-	out_data = { 'event':a_event, 'timestamp':int(time.time()), 'button':a_data }
-	try:
-		dbc = db.get_db()
-		for row in dbc.execute( 'select * from SubsDB where event=? and userid=?', [a_event,a_user] ):
-			rtn.append( { 'subid':row['subid'], 'userid':row['userid'], 'target_url':row['target_url'] } )
-			# TODO: DO THE PUSH
-			app.logger.info( 'push data to subscription: '+row['subid']+','+row['target_url'] )
-			r = requests.post( row['target_url'], json=out_data )
-			# TODO: "If Zapier responds with a 410 status code you should immediately remove the subscription to the failing hook (unsubscribe)."
-	except:
-		rtn['info'] = 'database error'
-	return rtn

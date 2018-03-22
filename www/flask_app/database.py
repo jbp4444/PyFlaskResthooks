@@ -21,26 +21,69 @@ https://opensource.org/licenses/MIT
 
 """
 
-import sqlite3
 from flask import g
+from peewee import *
 
 from flask_app import app
 
-# helper code to start up db connection
-def connect_db():
-	"""Connects to the specific database."""
-	rv = sqlite3.connect( app.config['DATABASE'] )
-	rv.row_factory = sqlite3.Row
-	return rv
-def get_db():
-	"""Opens a new database connection if there is none yet for the
-	current application context."""
-	if not hasattr( g, 'sqlite_db' ):
-		g.sqlite_db = connect_db()
-	return g.sqlite_db
+db = SqliteDatabase('db.db')
+
+class BaseDB(Model):
+	class Meta:
+		database = db
+
+class User(BaseDB):
+	username    = CharField( unique=True )
+	password    = CharField()
+	permissions = IntegerField()
+
+class Subscription(BaseDB):
+	user       = ForeignKeyField(User)
+	event      = CharField( index=True )
+	target_url = CharField()
+
+class Token(BaseDB):
+	token = CharField( unique=True )
+	user  = ForeignKeyField(User)
+	device_name = CharField()
+	time_create = IntegerField()
+
+class Devcode(BaseDB):
+	devcode = CharField( unique=True )
+	# TODO: could/should be a TimestampField
+	time_create = IntegerField()
+
+
+# Connect to our database.
+db.connect()
+# alt: db.connect(reuse_if_open=True)
+
+# split the create-tables calls out separately, for debugging
+db.create_tables([Subscription])
+db.create_tables([User])
+db.create_tables([Token])
+db.create_tables([Devcode])
+
 
 @app.teardown_appcontext
 def close_db(error):
 	"""Closes the database again at the end of the request."""
-	if hasattr( g, 'sqlite_db' ):
-		g.sqlite_db.close()
+	db.close()
+
+# # # # # # # # # # # # # # # # # # # # #
+## # # # # # # # # # # # # # # # # # # #
+# # # # # # # # # # # # # # # # # # # # #
+
+# TODO: remove this prior to production!!
+if( User.get_or_none( User.username=='mossy') == None ):
+	User(username='mossy',password='mossymossy',permissions=7).save()
+if( User.get_or_none( User.username=='oona') == None ):
+	User(username='oona',password='oonaoona',permissions=3).save()
+if( User.get_or_none( User.username=='baba') == None ):
+	User(username='baba',password='babababa',permissions=1).save()
+
+import time
+dc = Devcode.get_or_none( Devcode.devcode=='001122')
+if( dc != None ):
+	dc.delete_instance()
+Devcode(devcode='001122',time_create=time.time()).save()

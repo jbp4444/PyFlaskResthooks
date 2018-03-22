@@ -58,3 +58,5 @@ BASEPATH = '/pyhk'
 import baseapi
 import api
 import deviceapi
+import datapush
+import admin

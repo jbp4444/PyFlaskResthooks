@@ -1,17 +1,13 @@
-% sqlite3 db.db
-sqlite> .fullschema
-CREATE TABLE SubsDB ( subid TEXT PRIMARY KEY, userid TEXT, event TEXT, target_url TEXT );
-CREATE TABLE UserDB ( userid TEXT PRIMARY KEY, username TEXT, password TEXT , permissions integer);
-CREATE INDEX EventIdx ON SubsDB ( event );
-CREATE TABLE TokenDB ( token TEXT PRIMARY KEY, userid TEXT , device_name TEXT, time_create integer);
-CREATE TABLE DevcodeDB ( devcode TEXT PRIMARY KEY , claimed char(1), userid TEXT, time_create integer);
+Start-Up Process
+================
 
-Initial user-database:
-john, johnjohn, am9objpqb2huam9obg==  ... permissions=1
-oona, oonaoona, b29uYTpvb25hb29uYQ==  ... perm=3
-baba, babababa, YmFiYTpiYWJhYmFiYQ==  ... perm=3
-kate, katekate, a2F0ZTprYXRla2F0ZQ==  ... perm=7
+The code now includes basic account setup inside database.py
+* YOU SHOULD REMOVE THIS WHEN YOU'RE READY TO GO TO "PRODUCTION"
 
-Initial tokens:
-123456789 .. tied to john/123
-987654321 .. tied to baba/234
+Users:
+* mossy, pw=mossymossy, perms=7=user+developer+admin
+* oona, pw=oonaoona, perms=3=user+developer
+* baba, pw=babababa, perms=1=user
+
+Device-Code:
+* '001122' is registered, but not yet claimed
