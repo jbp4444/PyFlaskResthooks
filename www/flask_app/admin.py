@@ -21,6 +21,7 @@ https://opensource.org/licenses/MIT
 
 """
 
+import time
 from flask import abort, g, json
 
 from flask_app import app, BASEPATH, db, auth_required, AUTHLVL
@@ -70,4 +71,23 @@ def admin_list_event_data( in_event ):
 	dbq = db.Subscription.select().where( db.Subscription.event==in_event )
 	for row in dbq:
 		rtn[row.id] = { 'username':row.user.username,'event':row.event,'target_url':row.target_url }
+	return json.jsonify(rtn)
+
+@app.route( BASEPATH+'/admin/links', methods=['GET'] )
+def clean_old_device_tokens():
+	#app.logger.warning( 'cleaning devcodes' )
+	rtn = {}
+	time_now = int(time.time())
+	n = 0
+	dbq = db.Devcode.select()
+	for row in dbq:
+		time_created = row.time_create
+		#app.logger.info( 'time='+str(time_now)+'-'+str(time_created)+'='+str(time_now-time_created)+'::'+str(app.config['DEVCODE_TIMEOUT']))
+		if( (time_now-time_created) > app.config['DEVCODE_TIMEOUT'] ):
+			n = n + 1
+			row.delete_instance()
+
+	rtn['info'] = 'device-codes were cleared'
+	rtn['num'] = n
+	rtn['status'] = 'ok'
 	return json.jsonify(rtn)

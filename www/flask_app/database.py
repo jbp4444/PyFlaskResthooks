@@ -46,10 +46,12 @@ class Token(BaseDB):
 	token = CharField( unique=True )
 	user  = ForeignKeyField(User)
 	device_name = CharField()
+	# TODO: could/should be a TimestampField
 	time_create = IntegerField()
 
 class Devcode(BaseDB):
 	devcode = CharField( unique=True )
+	claimed = BooleanField()
 	# TODO: could/should be a TimestampField
 	time_create = IntegerField()
 
@@ -86,4 +88,4 @@ import time
 dc = Devcode.get_or_none( Devcode.devcode=='001122')
 if( dc != None ):
 	dc.delete_instance()
-Devcode(devcode='001122',time_create=time.time()).save()
+Devcode(devcode='001122',claimed=False,time_create=time.time()).save()

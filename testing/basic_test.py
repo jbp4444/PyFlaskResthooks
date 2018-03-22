@@ -55,13 +55,13 @@ r1d = requests.post( BASEURL, auth=('baba','babababa'),
 	data={'event':'button', 'target_url':'http:://a.com'} )
 print r1d.text
 r1djson = r1d.json()
-r1dd = requests.delete( BASEURL+r1djson['subid'], auth=('baba','babababa') )
+r1dd = requests.delete( BASEURL+str(r1djson['subid']), auth=('baba','babababa') )
 print r1dd.text
 print "  is it gone? ..."
-r1dd = requests.get( BASEURL+r1djson['subid'], auth=('baba','babababa') )
+r1dd = requests.get( BASEURL+str(r1djson['subid']), auth=('baba','babababa') )
 print r1dd.text
 print "  try to delete again ..."
-r1dd = requests.delete( BASEURL+r1djson['subid'], auth=('baba','babababa') )
+r1dd = requests.delete( BASEURL+str(r1djson['subid']), auth=('baba','babababa') )
 print r1dd.text
 
 #
@@ -76,16 +76,16 @@ print r.text
 # read the specific sub-id that was returned
 print 'Reading subscr-id from another user (should fail) ...'
 # try to read other user's subscription (should fail)
-r = requests.get( BASEURL+r1json['subid'], auth=('oona','oonaoona') )
+r = requests.get( BASEURL+str(r1json['subid']), auth=('oona','oonaoona') )
 print r.text
 
 # read the specific sub-id that was returned
 print 'Update subscr-id with new url ...'
 # try to read other user's subscription (should fail)
-r = requests.put( BASEURL+r1json['subid'], auth=('baba','babababa'),
+r = requests.put( BASEURL+str(r1json['subid']), auth=('baba','babababa'),
  	data={'event':'button','target_url':'http://x.com'} )
 print r.text
-r = requests.get( BASEURL+r1json['subid'], auth=('baba','babababa') )
+r = requests.get( BASEURL+str(r1json['subid']), auth=('baba','babababa') )
 print r.text
 
 #

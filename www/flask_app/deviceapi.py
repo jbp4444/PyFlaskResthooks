@@ -50,6 +50,9 @@ def test_device_token( in_code ):
 			rtn['info'] = 'device-code has expired'
 			rtn['status'] = 'error'
 			# TODO: delete this devcode
+		elif( dcode.claimed ):
+			rtn['info'] = 'device-code has been claimed'
+			rtn['status'] = 'Ok'
 		else:
 			rtn['info'] = 'device-code is unclaimed'
 			rtn['status'] = 'retry'
@@ -68,7 +71,7 @@ def reg_device_code():
 			rtn['info'] = 'device-code already in use'
 			rtn['status'] = 'retry'
 		else:
-			dcode = db.Devcode( devcode=in_devcode, time_create=time_now )
+			dcode = db.Devcode( devcode=in_devcode, claimed=False, time_create=time_now )
 			dcode.save()
 			rtn['info'] = 'device-code was registered'
 			rtn['status'] = 'ok'
@@ -83,24 +86,29 @@ def claim_device_code( in_code ):
 	# a user is claiming a device-code
 	# TODO: allow user to name the device that will be attached to this device-key
 	rtn = {}
-	time_now = time.time()
+	time_now = int(time.time())
 	dcode = db.Devcode.get_or_none( db.Devcode.devcode==in_code )
 	if( dcode != None ):
-		time_created = dcode.time_create
-		#app.logger.info( 'time='+str(time_now)+'-'+str(time_created)+'='+str(time_now-time_created)+'::'+str(app.config['DEVCODE_TIMEOUT']))
-		if( (time_now-time_created) > app.config['DEVCODE_TIMEOUT'] ):
-			rtn['info'] = 'device-code has expired'
+		if( dcode.claimed ):
+			rtn['info'] = 'device-code already claimed'
 			rtn['status'] = 'error'
-			# TODO: delete the devcode from db
 		else:
-			# TODO: this should be a transaction pair
-			dcode.delete_instance()
-			new_uuid = uuid.uuid1().hex
-			token = db.Token( token=new_uuid, user=g.auth_user, device_name="foo", time_create=time_now )
-			token.save()
-			rtn['info'] = 'device-code has been claimed'
-			rtn['token'] = new_uuid
-			rtn['status'] = 'ok'
+			time_created = dcode.time_create
+			#app.logger.info( 'time='+str(time_now)+'-'+str(time_created)+'='+str(time_now-time_created)+'::'+str(app.config['DEVCODE_TIMEOUT']))
+			if( (time_now-time_created) > app.config['DEVCODE_TIMEOUT'] ):
+				rtn['info'] = 'device-code has expired'
+				rtn['status'] = 'error'
+				# TODO: delete the devcode from db
+			else:
+				# TODO: this should be a transaction pair
+				dcode.claimed = True
+				dcode.save()
+				new_uuid = uuid.uuid1().hex
+				token = db.Token( token=new_uuid, user=g.auth_user, device_name="foo", time_create=time_now )
+				token.save()
+				rtn['info'] = 'device-code is now claimed'
+				rtn['token'] = new_uuid
+				rtn['status'] = 'ok'
 	else:
 		rtn['info'] = 'invalid device-code'
 		rtn['status'] = 'error'

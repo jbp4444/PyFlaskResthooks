@@ -28,33 +28,6 @@ BASEURL = 'http://localhost:5000/'
 if( 'BASEURL' in os.environ ):
 	BASEURL = os.environ['BASEURL']
 
-#
-# add some subscriptions
-#
-print "Device posts a device-code to server ..."
-r1 = requests.post( BASEURL+'link/', data={'authcode':'abc123'} )
+print "cleaning devcode list"
+r1 = requests.get( BASEURL+'admin/links', auth=('mossy','mossymossy') )
 print r1.text
-
-print "Device sees if device-code has been claimed by a user ... not yet"
-r2 = requests.get( BASEURL+'link/abc123' )
-print r2.text
-
-print "User baba claims that dev-code ..."
-r3 = requests.get( BASEURL+'activate/abc123', auth=('baba','babababa') )
-print r3.text
-
-print "Device sees if device-code has been claimed by a user ... yes"
-r4 = requests.get( BASEURL+'link/abc123' )
-print r4.text
-
-r3j = r3.json()
-r4j = r4.json()
-
-print "The device can now push data with its token, first with post-data ..."
-r5 = requests.post( BASEURL+'data/button', headers={'X-Device-Token':r3j['token']},
- 	data={'data':'post_data'} )
-print r5.text
-print "... and with json data ..."
-r6 = requests.post( BASEURL+'data/button', headers={'X-Device-Token':r3j['token']},
- 	json={'data':'json_data'} )
-print r6.text
