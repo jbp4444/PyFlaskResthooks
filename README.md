@@ -19,7 +19,7 @@ With an external subscription service (e.g. Zapier), the service would:
 
 The Thunkable/MIT-AI app models a simple IOT-style interaction:
 * The device generates a random device-code and registers it with the server
-** The device then presents that code to the user and instructs the user to "activate" it
+  * The device then presents that code to the user and instructs the user to "activate" it
 * The user logs in to some web-UI (not provided, but the hooks are built-in) and activates the device-code
 * The device eventually polls the server to see if the code has been "claimed"
 * If claimed by a user, the server responds to the device with a device-token (API-key) and stores the device-to-user connection in a database
@@ -28,5 +28,5 @@ Requirements:
 * Python 2.7
 * Flask - http://flask.pocoo.org/
 * Requests - http://docs.python-requests.org/en/master/
-* SQLite3 - http://sqlite.org/
+* Peewee - http://docs.peewee-orm.com/
 * Flup and wsgiref (should come by default)

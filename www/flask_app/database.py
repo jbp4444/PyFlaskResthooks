@@ -1,7 +1,7 @@
 """
-The flask application package.
+Py-Resthook demo
 
-Copyright (C) 2017 - John Pormann, Duke University Libraries
+Copyright (C) 2017-2018 - John Pormann, Duke University Libraries
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
 documentation files (the "Software"), to deal in the Software without restriction, including without limitation

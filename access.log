@@ -1,0 +1,366 @@
+app starting up
+app starting up
+ * Running on http://localhost:5000/ (Press CTRL+C to quit)
+ * Restarting with stat
+app starting up
+ * Debugger is active!
+ * Debugger PIN: 567-301-600
+127.0.0.1 - - [22/Mar/2018 14:27:43] "POST / HTTP/1.1" 404 -
+127.0.0.1 - - [22/Mar/2018 14:27:43] "POST / HTTP/1.1" 404 -
+127.0.0.1 - - [22/Mar/2018 14:27:43] "POST / HTTP/1.1" 404 -
+auth tokens: {'username': 'baba', 'password': 'babababa'}
+127.0.0.1 - - [22/Mar/2018 14:28:10] "POST /pyhk/ HTTP/1.1" 200 -
+auth tokens: {'username': 'baba', 'password': 'babababa'}
+127.0.0.1 - - [22/Mar/2018 14:28:10] "POST /pyhk/ HTTP/1.1" 200 -
+auth tokens: {'username': 'oona', 'password': 'oonaoona'}
+127.0.0.1 - - [22/Mar/2018 14:28:10] "POST /pyhk/ HTTP/1.1" 200 -
+auth tokens: {'username': 'baba', 'password': 'babababa'}
+127.0.0.1 - - [22/Mar/2018 14:28:10] "POST /pyhk/ HTTP/1.1" 200 -
+auth tokens: {'username': 'baba', 'password': 'babababa'}
+127.0.0.1 - - [22/Mar/2018 14:29:12] "POST /pyhk/ HTTP/1.1" 200 -
+auth tokens: {'username': 'baba', 'password': 'babababa'}
+127.0.0.1 - - [22/Mar/2018 14:29:12] "POST /pyhk/ HTTP/1.1" 200 -
+auth tokens: {'username': 'oona', 'password': 'oonaoona'}
+127.0.0.1 - - [22/Mar/2018 14:29:12] "POST /pyhk/ HTTP/1.1" 200 -
+auth tokens: {'username': 'baba', 'password': 'babababa'}
+127.0.0.1 - - [22/Mar/2018 14:29:12] "POST /pyhk/ HTTP/1.1" 200 -
+auth tokens: {'username': 'baba', 'password': 'babababa'}
+127.0.0.1 - - [22/Mar/2018 14:29:12] "DELETE /pyhk/8 HTTP/1.1" 200 -
+auth tokens: {'username': 'baba', 'password': 'babababa'}
+127.0.0.1 - - [22/Mar/2018 14:29:12] "GET /pyhk/8 HTTP/1.1" 200 -
+auth tokens: {'username': 'baba', 'password': 'babababa'}
+127.0.0.1 - - [22/Mar/2018 14:29:12] "DELETE /pyhk/8 HTTP/1.1" 200 -
+auth tokens: {'username': 'baba', 'password': 'babababa'}
+127.0.0.1 - - [22/Mar/2018 14:29:12] "GET /pyhk/ HTTP/1.1" 200 -
+auth tokens: {'username': 'baba', 'password': 'babababa'}
+127.0.0.1 - - [22/Mar/2018 14:29:12] "GET /pyhk/listfull HTTP/1.1" 200 -
+auth tokens: {'username': 'oona', 'password': 'oonaoona'}
+127.0.0.1 - - [22/Mar/2018 14:29:12] "GET /pyhk/5 HTTP/1.1" 200 -
+auth tokens: {'username': 'baba', 'password': 'babababa'}
+127.0.0.1 - - [22/Mar/2018 14:29:12] "PUT /pyhk/5 HTTP/1.1" 200 -
+auth tokens: {'username': 'baba', 'password': 'babababa'}
+127.0.0.1 - - [22/Mar/2018 14:29:12] "GET /pyhk/5 HTTP/1.1" 200 -
+auth tokens: {'username': 'baba', 'password': 'babababa'}
+127.0.0.1 - - [22/Mar/2018 14:29:12] "GET /pyhk/event/button HTTP/1.1" 200 -
+app starting up
+ * Running on http://localhost:5000/ (Press CTRL+C to quit)
+ * Restarting with stat
+app starting up
+ * Debugger is active!
+ * Debugger PIN: 567-301-600
+auth tokens: {'username': 'baba', 'password': 'babababa'}
+127.0.0.1 - - [22/Mar/2018 14:29:28] "POST /pyhk/ HTTP/1.1" 200 -
+auth tokens: {'username': 'baba', 'password': 'babababa'}
+127.0.0.1 - - [22/Mar/2018 14:29:28] "POST /pyhk/ HTTP/1.1" 200 -
+auth tokens: {'username': 'oona', 'password': 'oonaoona'}
+127.0.0.1 - - [22/Mar/2018 14:29:28] "POST /pyhk/ HTTP/1.1" 200 -
+auth tokens: {'username': 'baba', 'password': 'babababa'}
+127.0.0.1 - - [22/Mar/2018 14:29:28] "POST /pyhk/ HTTP/1.1" 200 -
+auth tokens: {'username': 'baba', 'password': 'babababa'}
+127.0.0.1 - - [22/Mar/2018 14:29:28] "DELETE /pyhk/4 HTTP/1.1" 200 -
+auth tokens: {'username': 'baba', 'password': 'babababa'}
+127.0.0.1 - - [22/Mar/2018 14:29:28] "GET /pyhk/4 HTTP/1.1" 200 -
+auth tokens: {'username': 'baba', 'password': 'babababa'}
+127.0.0.1 - - [22/Mar/2018 14:29:28] "DELETE /pyhk/4 HTTP/1.1" 200 -
+auth tokens: {'username': 'baba', 'password': 'babababa'}
+127.0.0.1 - - [22/Mar/2018 14:29:28] "GET /pyhk/ HTTP/1.1" 200 -
+auth tokens: {'username': 'baba', 'password': 'babababa'}
+127.0.0.1 - - [22/Mar/2018 14:29:28] "GET /pyhk/listfull HTTP/1.1" 200 -
+auth tokens: {'username': 'oona', 'password': 'oonaoona'}
+127.0.0.1 - - [22/Mar/2018 14:29:28] "GET /pyhk/1 HTTP/1.1" 200 -
+auth tokens: {'username': 'baba', 'password': 'babababa'}
+127.0.0.1 - - [22/Mar/2018 14:29:28] "PUT /pyhk/1 HTTP/1.1" 200 -
+auth tokens: {'username': 'baba', 'password': 'babababa'}
+127.0.0.1 - - [22/Mar/2018 14:29:28] "GET /pyhk/1 HTTP/1.1" 200 -
+auth tokens: {'username': 'baba', 'password': 'babababa'}
+127.0.0.1 - - [22/Mar/2018 14:29:28] "GET /pyhk/event/button HTTP/1.1" 200 -
+registering dev-code=abc123
+127.0.0.1 - - [22/Mar/2018 14:31:05] "POST /pyhk/link/ HTTP/1.1" 200 -
+looking for devcode=abc123
+127.0.0.1 - - [22/Mar/2018 14:31:05] "GET /pyhk/link/abc123 HTTP/1.1" 200 -
+auth tokens: {'username': 'baba', 'password': 'babababa'}
+127.0.0.1 - - [22/Mar/2018 14:31:05] "GET /pyhk/activate/abc123 HTTP/1.1" 200 -
+looking for devcode=abc123
+127.0.0.1 - - [22/Mar/2018 14:31:05] "GET /pyhk/link/abc123 HTTP/1.1" 200 -
+registering dev-code=abc123
+127.0.0.1 - - [22/Mar/2018 14:33:13] "POST /pyhk/link/ HTTP/1.1" 200 -
+looking for devcode=abc123
+127.0.0.1 - - [22/Mar/2018 14:33:13] "GET /pyhk/link/abc123 HTTP/1.1" 200 -
+auth tokens: {'username': 'baba', 'password': 'babababa'}
+127.0.0.1 - - [22/Mar/2018 14:33:13] "GET /pyhk/activate/abc123 HTTP/1.1" 200 -
+looking for devcode=abc123
+127.0.0.1 - - [22/Mar/2018 14:33:13] "GET /pyhk/link/abc123 HTTP/1.1" 200 -
+found auth token:7aa24c512dff11e8801bc8e0eb16d851
+push-data-general button
+127.0.0.1 - - [22/Mar/2018 14:33:13] "POST /pyhk/data/button HTTP/1.1" 200 -
+found auth token:7aa24c512dff11e8801bc8e0eb16d851
+push-data-general button
+127.0.0.1 - - [22/Mar/2018 14:33:13] "POST /pyhk/data/button HTTP/1.1" 200 -
+app starting up
+ * Running on http://localhost:5000/ (Press CTRL+C to quit)
+ * Restarting with stat
+app starting up
+ * Debugger is active!
+ * Debugger PIN: 567-301-600
+registering dev-code=abc123
+127.0.0.1 - - [22/Mar/2018 14:33:22] "POST /pyhk/link/ HTTP/1.1" 200 -
+looking for devcode=abc123
+127.0.0.1 - - [22/Mar/2018 14:33:22] "GET /pyhk/link/abc123 HTTP/1.1" 200 -
+auth tokens: {'username': 'baba', 'password': 'babababa'}
+127.0.0.1 - - [22/Mar/2018 14:33:22] "GET /pyhk/activate/abc123 HTTP/1.1" 200 -
+looking for devcode=abc123
+127.0.0.1 - - [22/Mar/2018 14:33:22] "GET /pyhk/link/abc123 HTTP/1.1" 200 -
+found auth token:8003137a2dff11e8bc0ec8e0eb16d851
+push-data-general button
+127.0.0.1 - - [22/Mar/2018 14:33:22] "POST /pyhk/data/button HTTP/1.1" 200 -
+found auth token:8003137a2dff11e8bc0ec8e0eb16d851
+push-data-general button
+127.0.0.1 - - [22/Mar/2018 14:33:22] "POST /pyhk/data/button HTTP/1.1" 200 -
+app starting up
+ * Running on http://localhost:5000/ (Press CTRL+C to quit)
+ * Restarting with stat
+app starting up
+ * Debugger is active!
+ * Debugger PIN: 567-301-600
+registering dev-code=abc123
+127.0.0.1 - - [22/Mar/2018 14:34:17] "POST /pyhk/link/ HTTP/1.1" 200 -
+looking for devcode=abc123
+127.0.0.1 - - [22/Mar/2018 14:34:17] "GET /pyhk/link/abc123 HTTP/1.1" 200 -
+auth tokens: {'username': 'baba', 'password': 'babababa'}
+127.0.0.1 - - [22/Mar/2018 14:34:17] "GET /pyhk/activate/abc123 HTTP/1.1" 200 -
+looking for devcode=abc123
+127.0.0.1 - - [22/Mar/2018 14:34:17] "GET /pyhk/link/abc123 HTTP/1.1" 200 -
+found auth token:a13d70612dff11e88dd4c8e0eb16d851
+push-data-general button
+data-push button on behalf of userid=baba
+127.0.0.1 - - [22/Mar/2018 14:34:18] "POST /pyhk/data/button HTTP/1.1" 200 -
+found auth token:a13d70612dff11e88dd4c8e0eb16d851
+push-data-general button
+data-push button on behalf of userid=baba
+127.0.0.1 - - [22/Mar/2018 14:34:18] "POST /pyhk/data/button HTTP/1.1" 200 -
+app starting up
+ * Running on http://localhost:5000/ (Press CTRL+C to quit)
+ * Restarting with stat
+app starting up
+ * Debugger is active!
+ * Debugger PIN: 567-301-600
+auth tokens: {'username': 'baba', 'password': 'babababa'}
+127.0.0.1 - - [22/Mar/2018 14:34:33] "POST /pyhk/ HTTP/1.1" 200 -
+auth tokens: {'username': 'baba', 'password': 'babababa'}
+127.0.0.1 - - [22/Mar/2018 14:34:33] "POST /pyhk/ HTTP/1.1" 200 -
+auth tokens: {'username': 'oona', 'password': 'oonaoona'}
+127.0.0.1 - - [22/Mar/2018 14:34:33] "POST /pyhk/ HTTP/1.1" 200 -
+auth tokens: {'username': 'baba', 'password': 'babababa'}
+127.0.0.1 - - [22/Mar/2018 14:34:33] "POST /pyhk/ HTTP/1.1" 200 -
+auth tokens: {'username': 'baba', 'password': 'babababa'}
+127.0.0.1 - - [22/Mar/2018 14:34:33] "DELETE /pyhk/4 HTTP/1.1" 200 -
+auth tokens: {'username': 'baba', 'password': 'babababa'}
+127.0.0.1 - - [22/Mar/2018 14:34:33] "GET /pyhk/4 HTTP/1.1" 200 -
+auth tokens: {'username': 'baba', 'password': 'babababa'}
+127.0.0.1 - - [22/Mar/2018 14:34:33] "DELETE /pyhk/4 HTTP/1.1" 200 -
+auth tokens: {'username': 'baba', 'password': 'babababa'}
+127.0.0.1 - - [22/Mar/2018 14:34:33] "GET /pyhk/ HTTP/1.1" 200 -
+auth tokens: {'username': 'baba', 'password': 'babababa'}
+127.0.0.1 - - [22/Mar/2018 14:34:33] "GET /pyhk/listfull HTTP/1.1" 200 -
+auth tokens: {'username': 'oona', 'password': 'oonaoona'}
+127.0.0.1 - - [22/Mar/2018 14:34:33] "GET /pyhk/1 HTTP/1.1" 200 -
+auth tokens: {'username': 'baba', 'password': 'babababa'}
+127.0.0.1 - - [22/Mar/2018 14:34:33] "PUT /pyhk/1 HTTP/1.1" 200 -
+auth tokens: {'username': 'baba', 'password': 'babababa'}
+127.0.0.1 - - [22/Mar/2018 14:34:33] "GET /pyhk/1 HTTP/1.1" 200 -
+auth tokens: {'username': 'baba', 'password': 'babababa'}
+127.0.0.1 - - [22/Mar/2018 14:34:33] "GET /pyhk/event/button HTTP/1.1" 200 -
+registering dev-code=abc123
+127.0.0.1 - - [22/Mar/2018 14:34:35] "POST /pyhk/link/ HTTP/1.1" 200 -
+looking for devcode=abc123
+127.0.0.1 - - [22/Mar/2018 14:34:35] "GET /pyhk/link/abc123 HTTP/1.1" 200 -
+auth tokens: {'username': 'baba', 'password': 'babababa'}
+127.0.0.1 - - [22/Mar/2018 14:34:35] "GET /pyhk/activate/abc123 HTTP/1.1" 200 -
+looking for devcode=abc123
+127.0.0.1 - - [22/Mar/2018 14:34:35] "GET /pyhk/link/abc123 HTTP/1.1" 200 -
+found auth token:ab834fa62dff11e8b13bc8e0eb16d851
+push-data-general button
+data-push button on behalf of userid=baba
+push data to subscription: 1,http://x.com
+127.0.0.1 - - [22/Mar/2018 14:34:35] "POST /pyhk/data/button HTTP/1.1" 200 -
+found auth token:ab834fa62dff11e8b13bc8e0eb16d851
+push-data-general button
+data-push button on behalf of userid=baba
+push data to subscription: 1,http://x.com
+127.0.0.1 - - [22/Mar/2018 14:34:35] "POST /pyhk/data/button HTTP/1.1" 200 -
+ * Detected change in '/Users/jbp1/web/resthooks/pyhk/www/flask_app/database.py', reloading
+ * Restarting with stat
+app starting up
+ * Running on http://localhost:5000/ (Press CTRL+C to quit)
+ * Restarting with stat
+app starting up
+ * Debugger is active!
+ * Debugger PIN: 567-301-600
+auth tokens: {'username': 'baba', 'password': 'babababa'}
+127.0.0.1 - - [22/Mar/2018 14:39:54] "POST /pyhk/ HTTP/1.1" 200 -
+auth tokens: {'username': 'baba', 'password': 'babababa'}
+127.0.0.1 - - [22/Mar/2018 14:39:54] "POST /pyhk/ HTTP/1.1" 200 -
+auth tokens: {'username': 'oona', 'password': 'oonaoona'}
+127.0.0.1 - - [22/Mar/2018 14:39:54] "POST /pyhk/ HTTP/1.1" 200 -
+auth tokens: {'username': 'baba', 'password': 'babababa'}
+127.0.0.1 - - [22/Mar/2018 14:39:54] "POST /pyhk/ HTTP/1.1" 200 -
+auth tokens: {'username': 'baba', 'password': 'babababa'}
+127.0.0.1 - - [22/Mar/2018 14:39:54] "DELETE /pyhk/4 HTTP/1.1" 200 -
+auth tokens: {'username': 'baba', 'password': 'babababa'}
+127.0.0.1 - - [22/Mar/2018 14:39:54] "GET /pyhk/4 HTTP/1.1" 200 -
+auth tokens: {'username': 'baba', 'password': 'babababa'}
+127.0.0.1 - - [22/Mar/2018 14:39:54] "DELETE /pyhk/4 HTTP/1.1" 200 -
+auth tokens: {'username': 'baba', 'password': 'babababa'}
+127.0.0.1 - - [22/Mar/2018 14:39:54] "GET /pyhk/ HTTP/1.1" 200 -
+auth tokens: {'username': 'baba', 'password': 'babababa'}
+127.0.0.1 - - [22/Mar/2018 14:39:54] "GET /pyhk/listfull HTTP/1.1" 200 -
+auth tokens: {'username': 'oona', 'password': 'oonaoona'}
+127.0.0.1 - - [22/Mar/2018 14:39:54] "GET /pyhk/1 HTTP/1.1" 200 -
+auth tokens: {'username': 'baba', 'password': 'babababa'}
+127.0.0.1 - - [22/Mar/2018 14:39:54] "PUT /pyhk/1 HTTP/1.1" 200 -
+auth tokens: {'username': 'baba', 'password': 'babababa'}
+127.0.0.1 - - [22/Mar/2018 14:39:54] "GET /pyhk/1 HTTP/1.1" 200 -
+auth tokens: {'username': 'baba', 'password': 'babababa'}
+127.0.0.1 - - [22/Mar/2018 14:39:54] "GET /pyhk/event/button HTTP/1.1" 200 -
+registering dev-code=abc123
+127.0.0.1 - - [22/Mar/2018 14:39:56] "POST /pyhk/link/ HTTP/1.1" 200 -
+looking for devcode=abc123
+127.0.0.1 - - [22/Mar/2018 14:39:56] "GET /pyhk/link/abc123 HTTP/1.1" 200 -
+auth tokens: {'username': 'baba', 'password': 'babababa'}
+127.0.0.1 - - [22/Mar/2018 14:39:56] "GET /pyhk/activate/abc123 HTTP/1.1" 200 -
+looking for devcode=abc123
+127.0.0.1 - - [22/Mar/2018 14:39:56] "GET /pyhk/link/abc123 HTTP/1.1" 200 -
+found auth token:6ae98ee62e0011e8b0e6c8e0eb16d851
+push-data-general button
+data-push button on behalf of userid=baba
+push data to subscription: 1,http://x.com
+127.0.0.1 - - [22/Mar/2018 14:39:56] "POST /pyhk/data/button HTTP/1.1" 200 -
+found auth token:6ae98ee62e0011e8b0e6c8e0eb16d851
+push-data-general button
+data-push button on behalf of userid=baba
+push data to subscription: 1,http://x.com
+127.0.0.1 - - [22/Mar/2018 14:39:56] "POST /pyhk/data/button HTTP/1.1" 200 -
+ * Detected change in '/Users/jbp1/web/resthooks/pyhk/www/flask_app/admin.py', reloading
+ * Restarting with stat
+app starting up
+app starting up
+ * Running on http://localhost:5000/ (Press CTRL+C to quit)
+ * Restarting with stat
+app starting up
+ * Debugger is active!
+ * Debugger PIN: 567-301-600
+registering dev-code=abc123
+127.0.0.1 - - [22/Mar/2018 14:44:05] "POST /pyhk/link/ HTTP/1.1" 200 -
+looking for devcode=abc123
+127.0.0.1 - - [22/Mar/2018 14:44:05] "GET /pyhk/link/abc123 HTTP/1.1" 200 -
+auth tokens: {'username': 'baba', 'password': 'babababa'}
+127.0.0.1 - - [22/Mar/2018 14:44:05] "GET /pyhk/activate/abc123 HTTP/1.1" 200 -
+looking for devcode=abc123
+127.0.0.1 - - [22/Mar/2018 14:44:05] "GET /pyhk/link/abc123 HTTP/1.1" 200 -
+BASEPATH is /pyhk
+127.0.0.1 - - [22/Mar/2018 14:45:53] "GET /pyhk/admin/links/ HTTP/1.1" 200 -
+app starting up
+ * Running on http://localhost:5000/ (Press CTRL+C to quit)
+ * Restarting with stat
+app starting up
+ * Debugger is active!
+ * Debugger PIN: 567-301-600
+BASEPATH is /pyhk
+127.0.0.1 - - [22/Mar/2018 14:46:15] "GET /pyhk/admin/links/ HTTP/1.1" 200 -
+127.0.0.1 - - [22/Mar/2018 14:46:38] "GET /pyhk/admin/links HTTP/1.1" 500 -
+ * Detected change in '/Users/jbp1/web/resthooks/pyhk/www/flask_app/admin.py', reloading
+ * Restarting with stat
+app starting up
+ * Debugger is active!
+ * Debugger PIN: 567-301-600
+cleaning devcodes
+127.0.0.1 - - [22/Mar/2018 14:47:00] "GET /pyhk/admin/links HTTP/1.1" 500 -
+ * Detected change in '/Users/jbp1/web/resthooks/pyhk/www/flask_app/admin.py', reloading
+ * Restarting with stat
+app starting up
+ * Debugger is active!
+ * Debugger PIN: 567-301-600
+cleaning devcodes
+127.0.0.1 - - [22/Mar/2018 14:47:08] "GET /pyhk/admin/links HTTP/1.1" 500 -
+app starting up
+ * Running on http://localhost:5000/ (Press CTRL+C to quit)
+ * Restarting with stat
+app starting up
+ * Debugger is active!
+ * Debugger PIN: 567-301-600
+cleaning devcodes
+127.0.0.1 - - [22/Mar/2018 14:48:14] "GET /pyhk/admin/links HTTP/1.1" 500 -
+ * Detected change in '/Users/jbp1/web/resthooks/pyhk/www/flask_app/admin.py', reloading
+ * Restarting with stat
+app starting up
+ * Debugger is active!
+ * Debugger PIN: 567-301-600
+cleaning devcodes
+127.0.0.1 - - [22/Mar/2018 15:04:54] "GET /pyhk/admin/links HTTP/1.1" 500 -
+ * Detected change in '/Users/jbp1/web/resthooks/pyhk/www/flask_app/admin.py', reloading
+ * Restarting with stat
+app starting up
+ * Debugger is active!
+ * Debugger PIN: 567-301-600
+app starting up
+ * Running on http://localhost:5000/ (Press CTRL+C to quit)
+ * Restarting with stat
+app starting up
+ * Debugger is active!
+ * Debugger PIN: 567-301-600
+cleaning devcodes
+127.0.0.1 - - [22/Mar/2018 15:06:13] "GET /pyhk/admin/links HTTP/1.1" 500 -
+ * Detected change in '/Users/jbp1/web/resthooks/pyhk/www/flask_app/admin.py', reloading
+ * Restarting with stat
+app starting up
+ * Debugger is active!
+ * Debugger PIN: 567-301-600
+cleaning devcodes
+127.0.0.1 - - [22/Mar/2018 15:06:49] "GET /pyhk/admin/links HTTP/1.1" 500 -
+ * Detected change in '/Users/jbp1/web/resthooks/pyhk/www/flask_app/admin.py', reloading
+ * Restarting with stat
+app starting up
+ * Debugger is active!
+ * Debugger PIN: 567-301-600
+ * Detected change in '/Users/jbp1/web/resthooks/pyhk/www/flask_app/admin.py', reloading
+ * Restarting with stat
+app starting up
+ * Debugger is active!
+ * Debugger PIN: 567-301-600
+cleaning devcodes
+127.0.0.1 - - [22/Mar/2018 15:07:09] "GET /pyhk/admin/links HTTP/1.1" 500 -
+ * Detected change in '/Users/jbp1/web/resthooks/pyhk/www/flask_app/admin.py', reloading
+ * Restarting with stat
+app starting up
+ * Debugger is active!
+ * Debugger PIN: 567-301-600
+cleaning devcodes
+127.0.0.1 - - [22/Mar/2018 15:07:20] "GET /pyhk/admin/links HTTP/1.1" 500 -
+ * Detected change in '/Users/jbp1/web/resthooks/pyhk/www/flask_app/admin.py', reloading
+ * Restarting with stat
+app starting up
+ * Debugger is active!
+ * Debugger PIN: 567-301-600
+cleaning devcodes
+debug devcodes
+127.0.0.1 - - [22/Mar/2018 15:07:45] "GET /pyhk/admin/links HTTP/1.1" 500 -
+ * Detected change in '/Users/jbp1/web/resthooks/pyhk/www/flask_app/admin.py', reloading
+ * Restarting with stat
+app starting up
+ * Debugger is active!
+ * Debugger PIN: 567-301-600
+cleaning devcodes
+debug devcodes
+127.0.0.1 - - [22/Mar/2018 15:08:13] "GET /pyhk/admin/links HTTP/1.1" 500 -
+ * Detected change in '/Users/jbp1/web/resthooks/pyhk/www/flask_app/admin.py', reloading
+ * Restarting with stat
+app starting up
+ * Debugger is active!
+ * Debugger PIN: 567-301-600
+cleaning devcodes
+127.0.0.1 - - [22/Mar/2018 15:08:29] "GET /pyhk/admin/links HTTP/1.1" 200 -
+ * Detected change in '/Users/jbp1/web/resthooks/pyhk/www/flask_app/admin.py', reloading
+ * Restarting with stat
+app starting up
+ * Debugger is active!
+ * Debugger PIN: 567-301-600
