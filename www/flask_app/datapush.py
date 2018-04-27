@@ -69,7 +69,7 @@ def push_data_general( in_event=None ):
 		event = None
 
 	if( (event != None) and (data != None) ):
-		authuser = g.token_user
+		authuser = g.auth_user
 		rtn = _int_push_data( event, authuser, data )
 	else:
 		rtn = { 'info':'insufficient data', 'status':'error' }

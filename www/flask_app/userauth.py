@@ -41,34 +41,59 @@ def auth_required( auth_level ):
 	def real_auth_decorator(view_function):
 		@wraps(view_function)
 		def wrapper(*args, **kwargs):
-			if( auth_level < AUTHLVL.DEVICE ):
-				# user auth (username,password)
+			g.token       = None
+			g.auth_user   = None
+			g.auth_userid = None
+
+			app.logger.warning( 'trying to authenticate user' )
+
+			# auth by login-form?
+			if( ('username' in request.form) & ('password' in request.form) ):
+				username = request.form['username']
+				password = request.form['password']
+				app.logger.warning( 'login-auth tokens: '+username+','+password )
+				if( (username != None) and (password != None) ):
+					user = db.User.get_or_none( (db.User.username==username) & (db.User.password==password) )
+					#app.logger.warning( 'found user info:'+str(user) )
+					if( user != None ):
+						g.auth_user   = user
+						g.auth_userid = username
+
+			# auth by device auth (token)?
+			elif( 'X-Device-Token' in request.headers ):
+				hdrtoken = request.headers['X-Device-Token']
+				app.logger.warning( 'found auth token:'+hdrtoken )
+				time_now = int(time.time())
+				token = db.Token.get_or_none( db.Token.token==hdrtoken )
+				if( token != None ):
+					#app.logger.warning( 'token tied to userid='+row['userid'] )
+					time_created = token.time_create
+					if( (time_now-time_created) > app.config['TOKEN_TIMEOUT'] ):
+						# device-token is too old
+						abort(401)
+					g.token       = token
+					g.auth_user   = token.user
+					g.auth_userid = token.user.username
+
+			# auth by http-basic-auth (username,password)?
+			elif( request.authorization != None ):
 				auth = request.authorization
-				app.logger.warning( 'auth tokens: '+str(auth) )
+				app.logger.warning( 'basic-auth tokens: '+str(auth) )
 				if( auth != None ):
 					user = db.User.get_or_none( (db.User.username==auth.username) & (db.User.password==auth.password) )
 					#app.logger.warning( 'found user info:'+str(user) )
 					if( user != None ):
 						g.auth_user   = user
 						g.auth_userid = auth.username
-						return view_function(*args,**kwargs)
-			else:
-				# device auth (token)
-				if( 'X-Device-Token' in request.headers ):
-					hdrtoken = request.headers['X-Device-Token']
-					app.logger.warning( 'found auth token:'+hdrtoken )
-					time_now = int(time.time())
-					token = db.Token.get_or_none( db.Token.token==hdrtoken )
-					if( token != None ):
-						#app.logger.warning( 'token tied to userid='+row['userid'] )
-						time_created = token.time_create
-						if( (time_now-time_created) > app.config['TOKEN_TIMEOUT'] ):
-							# device-token is too old
-							abort(401)
-						g.token = token
-						g.token_user   = token.user
-						g.token_userid = token.user.username
+
+			#app.logger.warning( 'found user '+str(g.auth_user) )
+
+			if( g.auth_user!=None ):
+				#app.logger.warning( 'found user '+str(g.auth_user)+','+g.auth_userid+','+str(g.auth_user.permissions) )
+				if( g.auth_user.permissions >= auth_level ):
 					return view_function(*args,**kwargs)
+
+			# else this was a bad auth attempt
 			abort(401)
 		return wrapper
 	return real_auth_decorator

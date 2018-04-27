@@ -1,7 +1,7 @@
 """
-Py-Resthook demo
+The flask application package.
 
-Copyright (C) 2017-2018 - John Pormann, Duke University Libraries
+Copyright (C) 2017 - John Pormann, Duke University Libraries
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
 documentation files (the "Software"), to deal in the Software without restriction, including without limitation
@@ -22,42 +22,29 @@ https://opensource.org/licenses/MIT
 """
 
 import os
-import logging
+import requests
 
-from flask import Flask
-app = Flask(__name__)
+BASEURL = 'http://localhost:5000/'
+if( 'BASEURL' in os.environ ):
+	BASEURL = os.environ['BASEURL']
 
-# load config settings
-app.config.update( dict(
-	DEBUG = 1,
-	DATABASE = os.path.join(app.root_path,'db.db'),
-	API_KEY = 'foobarbaz',
-	EVENT_LIST = [ 'button', 'key' ],
-	DEVCODE_TIMEOUT = 3600,
-	TOKEN_TIMEOUT = 3600
-))
-#app.config.from_envvar( 'HOOKS_CONFIG', silent=True )
+#
+# add some subscriptions
+#
+print "Creating 3 subscriptions ..."
+r1 = requests.post( BASEURL, auth=('mossy','mossymossy'),
+	data={'event':'button', 'target_url':'http:://a.com'} )
+print r1.text
+r2 = requests.post( BASEURL, auth=('mossy','mossymossy'),
+	data={'event':'key', 'target_url':'http:://b.com'} )
+print r2.text
+r3 = requests.post( BASEURL, auth=('mossy','mossymossy'),
+	data={'event':'button', 'target_url':'http:://c.com'} )
+print r3.text
 
-import database as db
-from userauth import AUTHLVL, auth_required
-
-# set up logging
-logger = logging.getLogger('werkzeug')
-handler = logging.FileHandler('access.log')
-logger.addHandler(handler)
-app.logger.addHandler(handler)
-app.logger.setLevel( 'DEBUG' )
-app.logger.info( 'app starting up' )
-
-# TODO: try to remove the leading path
-#rt_cwd = os.getcwd()
-#app.logger.warning( 'cwd='+rt_cwd )
-BASEPATH = '/pyhk'
-#BASEPATH = ''
-
-import baseapi
-import api
-import deviceapi
-import datapush
-import admin
-import webui
+print "Device posts a device-code to server ..."
+r1 = requests.post( BASEURL+'link/', data={'authcode':'abc123'} )
+print r1.text
+print "Device posts another device-code to server ..."
+r2 = requests.post( BASEURL+'link/', data={'authcode':'xyz456'} )
+print r2.text

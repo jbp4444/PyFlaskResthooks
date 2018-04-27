@@ -80,8 +80,6 @@ def reg_device_code():
 		rtn['status'] = 'error'
 	return json.jsonify(rtn)
 
-@app.route( BASEPATH+'/activate/<in_code>', methods=['GET'] )
-@auth_required( AUTHLVL.USER )
 def claim_device_code( in_code ):
 	# a user is claiming a device-code
 	# TODO: allow user to name the device that will be attached to this device-key
@@ -112,4 +110,9 @@ def claim_device_code( in_code ):
 	else:
 		rtn['info'] = 'invalid device-code'
 		rtn['status'] = 'error'
-	return json.jsonify(rtn)
+	return rtn
+
+@app.route( BASEPATH+'/activate/<in_code>', methods=['GET'] )
+@auth_required( AUTHLVL.USER )
+def api_claim_device_code( in_code ):
+	return json.jsonify( claim_device_code(in_code) )

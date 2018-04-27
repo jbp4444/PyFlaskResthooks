@@ -21,7 +21,7 @@ https://opensource.org/licenses/MIT
 
 """
 
-from flask import abort, g, json
+from flask import abort, g, json, Response
 
 from flask_app import app, BASEPATH
 
@@ -33,7 +33,9 @@ def handle_bad_req(e):
 	return json.jsonify( {'status':400, 'info':'bad request'} ), 400
 @app.errorhandler( 401 )
 def handle_bad_auth(e):
-	return json.jsonify( {'status':401, 'info':'authentication failure'} ), 401
+	return Response( 'You have to login with proper credentials', 401,
+		{'WWW-Authenticate': 'Basic realm="Login Required"'} )
+	#return json.jsonify( {'status':401, 'info':'authentication failure'} ), 401
 
 @app.route( BASEPATH+'/help', methods=['GET'] )
 def show_endpoints():

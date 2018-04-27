@@ -1,0 +1,14 @@
+<html>
+<head>
+<title>Claim device code</title>
+</head>
+<body>
+	<h1>Hello {{ name }}!</h1>
+	<br>
+	<form action='/pyhk/claimcode' method='POST'>
+		Device Code: <input type='text' name='devcode' size=15><br>
+		<input type='submit' value='Claim'>
+	</form>
+
+</body>
+</html>

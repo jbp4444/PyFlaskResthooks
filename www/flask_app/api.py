@@ -41,8 +41,6 @@ def list_subs():
 		rtn = { 'info':'could not get list','status':'error' }
 	return json.jsonify(rtn)
 
-@app.route( BASEPATH+'/listfull', methods=['GET'] )
-@auth_required( AUTHLVL.USER )
 def list_subs_full():
 	authuser = g.auth_user
 	rtn = {}
@@ -51,7 +49,12 @@ def list_subs_full():
 		rtn[row.id] = { 'event':row.event,'target_url':row.target_url }
 	if( len(rtn) == 0 ):
 		rtn = { 'info':'could not get list','status':'error' }
-	return json.jsonify(rtn)
+	return rtn
+
+@app.route( BASEPATH+'/listfull', methods=['GET'] )
+@auth_required( AUTHLVL.USER )
+def list_subs_full():
+	return json.jsonify( list_subs_full() )
 
 @app.route( BASEPATH+'/<in_subid>', methods=['GET'] )
 @auth_required( AUTHLVL.USER )

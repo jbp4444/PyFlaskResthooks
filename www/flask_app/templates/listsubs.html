@@ -1,0 +1,18 @@
+<html>
+<head>
+<title>Subscriptions for {{ name }}</title>
+</head>
+<body>
+	<h1>Subscriptions for {{ name }}!</h1>
+	<p>
+		<ul>
+			{% for d in data %}
+			  <li>{{ d }}</li>
+			{% endfor %}
+		</ul>
+
+	<p>
+	<a href='/pyhk/hello'>Back to home page</a>
+
+</body>
+</html>
