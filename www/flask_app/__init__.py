@@ -38,8 +38,16 @@ app.config.update( dict(
 ))
 #app.config.from_envvar( 'HOOKS_CONFIG', silent=True )
 
+# simple permissions model for "higher-level" functions
+# database holds an integer 'permissions' field, which is bitwise-and of:
+class AUTHLVL:
+	NONE = 0
+	# "standard" user auth levels
+	USER = 1
+	ADMIN = 10
+
 import database as db
-from userauth import AUTHLVL, auth_required
+from userauth import auth_required
 
 # set up logging
 logger = logging.getLogger('werkzeug')

@@ -30,12 +30,12 @@ from flask_app import app, BASEPATH
 
 @app.errorhandler( 400 )
 def handle_bad_req(e):
-	return json.jsonify( {'status':400, 'info':'bad request'} ), 400
+	return jsonify( {'status':400, 'info':'bad request'} ), 400
 @app.errorhandler( 401 )
 def handle_bad_auth(e):
 	return Response( 'You have to login with proper credentials', 401,
 		{'WWW-Authenticate': 'Basic realm="Login Required"'} )
-	#return json.jsonify( {'status':401, 'info':'authentication failure'} ), 401
+	#return jsonify( {'status':401, 'info':'authentication failure'} ), 401
 
 @app.route( BASEPATH+'/help', methods=['GET'] )
 def show_endpoints():
@@ -47,12 +47,12 @@ def show_endpoints():
 		{'endpoint':'/event', 'verb':'GET', 'info':'list known event types'},
 		{'endpoint':'/event/<evtname>', 'verb':'GET', 'info':'list a user\'s subscriptions for that event'},
 		{'endpoint':'/data/<evtname>', 'verb':'POST', 'info':'post data for a given event'} ]
-	return json.jsonify(rtn)
+	return jsonify(rtn)
 
 @app.route( BASEPATH+'/events', methods=['GET'] )
 @app.route( BASEPATH+'/event', methods=['GET'] )
 def list_events():
-	return json.jsonify(app.config['EVENT_LIST'])
+	return jsonify(app.config['EVENT_LIST'])
 
 # quick test
 @app.route( BASEPATH+'/quick/' )

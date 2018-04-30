@@ -21,29 +21,32 @@ https://opensource.org/licenses/MIT
 
 """
 
-import uuid
-from flask import request, abort, g, json
+from flask import request, g, jsonify
 
 from flask_app import app, BASEPATH, db, auth_required, AUTHLVL
 
 # the app instance is created in __init__
 
+# # # # # # # # # # # # # # # # # # # #
 
-@app.route( BASEPATH+'/', methods=['GET'] )
-@auth_required( AUTHLVL.USER )
-def list_subs():
-	authuser = g.auth_user
+def list_subs( authuser ):
 	rtn = []
 	dbq = db.Subscription.select().where( db.Subscription.user==authuser )
 	for row in dbq:
 		rtn.append( row.id )
 	if( len(rtn) == 0 ):
 		rtn = { 'info':'could not get list','status':'error' }
-	return json.jsonify(rtn)
+	return rtn
 
-def list_subs_full():
-	authuser = g.auth_user
-	rtn = {}
+@app.route( BASEPATH+'/', methods=['GET'] )
+@auth_required( AUTHLVL.USER )
+def api_list_subs():
+	return jsonify( list_subs(g.auth_user) )
+
+# # # # # # # # # # # # # # # # # # # #
+
+def list_subs_full( authuser ):
+	rtn = { 'info':'unknown error', 'status':'error' }
 	dbq = db.Subscription.select().where( db.Subscription.user==authuser )
 	for row in dbq:
 		rtn[row.id] = { 'event':row.event,'target_url':row.target_url }
@@ -53,24 +56,44 @@ def list_subs_full():
 
 @app.route( BASEPATH+'/listfull', methods=['GET'] )
 @auth_required( AUTHLVL.USER )
-def list_subs_full():
-	return json.jsonify( list_subs_full() )
+def api_list_subs_full():
+	return jsonify( list_subs_full(g.auth_user) )
 
-@app.route( BASEPATH+'/<in_subid>', methods=['GET'] )
-@auth_required( AUTHLVL.USER )
-def get_subs( in_subid ):
-	authuser = g.auth_user
+# # # # # # # # # # # # # # # # # # # #
+
+def get_subs( authuser, in_subid ):
+	rtn = { 'info':'unknown error', 'status':'error' }
 	sub = db.Subscription.get_or_none( (db.Subscription.user==authuser) & (db.Subscription.id==in_subid) )
 	if( sub == None ):
 		rtn = { 'info':'could not get subscription','status':'error' }
 	else:
 		rtn = {'event':sub.event,'target_url':sub.target_url}
-	return json.jsonify(rtn)
+	return rtn
+
+@app.route( BASEPATH+'/<in_subid>', methods=['GET'] )
+@auth_required( AUTHLVL.USER )
+def api_get_subs( in_subid ):
+	return jsonify( get_subs(g.auth_user,in_subid) )
+
+# # # # # # # # # # # # # # # # # # # #
+
+def new_entry( authuser, event=None, target_url=None ):
+	rtn = { 'info':'unknown error', 'status':'error' }
+	if( not event in app.config['EVENT_LIST'] ):
+		# TODO: customize the error to indicate bad event name
+		event = None
+
+	if( (event != None) and (target_url != None) ):
+		newsub = db.Subscription( user=authuser, event=event, target_url=target_url )
+		newsub.save()
+		rtn = { 'subid':newsub.id,'info':'new subscription created','status':'ok' }
+	else:
+		rtn = { 'info':'insufficient information to create new subscription','status':'error' }
+	return rtn
 
 @app.route( BASEPATH+'/', methods=['POST'] )
 @auth_required( AUTHLVL.USER )
-def new_entry():
-	rtn = { 'info':'unknown error', 'status':'error' }
+def api_new_entry():
 	event = None
 	target_url = None
 	if( request.json != None ):
@@ -83,39 +106,50 @@ def new_entry():
 			event = request.form['event']
 		if( 'target_url' in request.form ):
 			target_url = request.form['target_url']
-	if( not event in app.config['EVENT_LIST'] ):
-		# TODO: customize the error to indicate bad event name
-		event = None
+	return jsonify( new_entry(g.auth_user,event,target_url) )
 
-	if( (event != None) and (target_url != None) ):
-		authuser = g.auth_user
-		#new_subid = uuid.uuid1().hex
-		#app.logger.warning( 'new-sub: user='+str(authuser) )
-		newsub = db.Subscription( user=authuser, event=event, target_url=target_url )
-		newsub.save()
-		rtn = { 'subid':newsub.id,'info':'new subscription created','status':'ok' }
-	else:
-		#abort( 400 )
-		rtn = { 'info':'insufficient information to create new subscription','status':'error' }
-	return json.jsonify(rtn)
+# # # # # # # # # # # # # # # # # # # #
 
-@app.route( BASEPATH+'/<in_subid>', methods=['DELETE'] )
-@auth_required( AUTHLVL.USER )
-def del_entry( in_subid ):
+def del_entry( authuser, in_subid ):
 	rtn = { 'info':'unknown error', 'status':'error' }
-	authuser = g.auth_user
 	sub = db.Subscription.get_or_none( (db.Subscription.user==authuser) & (db.Subscription.id==in_subid) )
 	if( sub == None ):
 		rtn = { 'info':'cannot delete subscription', 'status':'error' }
 	else:
 		sub.delete_instance()
 		rtn = { 'subid':in_subid,'info':'subscription deleted','status':'ok' }
-	return json.jsonify(rtn)
+	return rtn
+
+@app.route( BASEPATH+'/<in_subid>', methods=['DELETE'] )
+@auth_required( AUTHLVL.USER )
+def api_del_entry( in_subid ):
+	return jsonify( del_entry(g.auth_user,in_subid) )
+
+# # # # # # # # # # # # # # # # # # # #
+
+def update_entry( authuser, in_subid, event=None, target_url=None ):
+	rtn = { 'info':'unknown error', 'status':'error' }
+	if( not event in app.config['EVENT_LIST'] ):
+		# TODO: customize the error to indicate bad event name
+		event = None
+
+	if( (event != None) and (target_url != None) ):
+		rtn = {}
+		sub = db.Subscription.get_or_none( (db.Subscription.user==authuser) & (db.Subscription.id==in_subid) )
+		if( sub != None ):
+			if( event != None ):
+				sub.event = event
+			if( target_url != None ):
+				sub.target_url = target_url
+			sub.save()
+			rtn = { 'subid':in_subid,'status':'ok' }
+		else:
+			rtn = { 'info':'subid not found','status':'error' }
+	return rtn
 
 @app.route( BASEPATH+'/<in_subid>', methods=['PUT'] )
 @auth_required( AUTHLVL.USER )
-def update_entry( in_subid ):
-	rtn = { 'info':'unknown error', 'status':'error' }
+def api_update_entry( in_subid ):
 	event = None
 	target_url = None
 	if( request.json != None ):
@@ -128,34 +162,22 @@ def update_entry( in_subid ):
 			event = request.form['event']
 		if( 'target_url' in request.form ):
 			target_url = request.form['target_url']
-	if( not event in app.config['EVENT_LIST'] ):
-		# TODO: customize the error to indicate bad event name
-		event = None
+	return jsonify( update_entry(g.auth_user,in_subid,event,target_url) )
 
-	authuser = g.auth_user
-	rtn = {}
-	sub = db.Subscription.get_or_none( (db.Subscription.user==authuser) & (db.Subscription.id==in_subid) )
-	if( sub != None ):
-		if( event != None ):
-			sub.event = event
-		if( target_url != None ):
-			sub.target_url = target_url
-		sub.save()
-		rtn = { 'subid':in_subid,'status':'ok' }
-	else:
-		rtn = { 'info':'subid not found','status':'error' }
-	return json.jsonify(rtn)
+# # # # # # # # # # # # # # # # # # # #
 
-@app.route( BASEPATH+'/event/<in_event>', methods=['GET'] )
-@auth_required( AUTHLVL.USER )
-def list_event( in_event ):
+def list_event( authuser, in_event ):
 	rtn = { 'info':'unknown error', 'status':'error' }
 	if( in_event in app.config['EVENT_LIST'] ):
-		authuser = g.auth_user
 		rtn = []
 		dbq = db.Subscription.select().where( (db.Subscription.user==authuser) & (db.Subscription.event==in_event) )
 		for row in dbq:
 			rtn.append( row.id )
 	else:
 		rtn = { 'info':'event name not recognized', 'status':'error' }
-	return json.jsonify(rtn)
+	return rtn
+
+@app.route( BASEPATH+'/event/<in_event>', methods=['GET'] )
+@auth_required( AUTHLVL.USER )
+def api_list_event( in_event ):
+	return jsonify( list_event(g.auth_user,in_event) )

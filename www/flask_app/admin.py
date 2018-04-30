@@ -22,58 +22,82 @@ https://opensource.org/licenses/MIT
 """
 
 import time
-from flask import abort, g, json
+from flask import abort, g, jsonify
 
 from flask_app import app, BASEPATH, db, auth_required, AUTHLVL
 
 # the app instance is created in __init__
 
-@app.route( BASEPATH+'/admin/devcodes', methods=['GET'] )
-@auth_required( AUTHLVL.ADMIN )
 def admin_list_devcodes_full():
 	rtn = {}
 	dbq = db.Devcode.select()
 	for row in dbq:
 		rtn[row.id] = { 'devcode':row.devcode,'username':row.user.username,'claimed':row.claimed,'time_create':row.time_create }
-	return json.jsonify(rtn)
+	return rtn
 
-@app.route( BASEPATH+'/admin/tokens', methods=['GET'] )
+@app.route( BASEPATH+'/admin/devcodes', methods=['GET'] )
 @auth_required( AUTHLVL.ADMIN )
+def api_admin_list_devcodes_full():
+	return jsonify( admin_list_devcodes_full() )
+
+# # # # # # # # # # # # # # # # # # # #
+
 def admin_list_tokens_full():
 	rtn = {}
 	dbq = db.Token.select()
 	for row in dbq:
 		rtn[row.id] = { 'token':row.token,'username':row.user.username,'device_name':row.device_name,'time_create':row.time_create }
-	return json.jsonify(rtn)
+	return rtn
 
-@app.route( BASEPATH+'/admin/users', methods=['GET'] )
+@app.route( BASEPATH+'/admin/tokens', methods=['GET'] )
 @auth_required( AUTHLVL.ADMIN )
+def api_admin_list_tokens_full():
+	return jsonify( admin_list_tokens_full() )
+
+# # # # # # # # # # # # # # # # # # # #
+
 def admin_list_users_full():
 	rtn = {}
 	dbq = db.User.select()
 	for row in dbq:
 		rtn[row.id] = { 'username':row.username,'permissions':row.permissions }
-	return json.jsonify(rtn)
+	return rtn
 
-@app.route( BASEPATH+'/admin/subs', methods=['GET'] )
+@app.route( BASEPATH+'/admin/users', methods=['GET'] )
 @auth_required( AUTHLVL.ADMIN )
+def api_admin_list_users_full():
+	return jsonify( admin_list_users_full() )
+
+# # # # # # # # # # # # # # # # # # # #
+
 def admin_list_subs_full():
 	rtn = {}
 	dbq = db.Subscription.select()
 	for row in dbq:
 		rtn[row.id] = { 'userid':row.user,'event':row.event,'target_url':row.target_url }
-	return json.jsonify(rtn)
+	return rtn
 
-@app.route( BASEPATH+'/admin/events/<in_event>', methods=['GET'] )
+@app.route( BASEPATH+'/admin/subs', methods=['GET'] )
 @auth_required( AUTHLVL.ADMIN )
+def api_admin_list_subs_full():
+	return jsonify( admin_list_subs_full() )
+
+# # # # # # # # # # # # # # # # # # # #
+
 def admin_list_event_data( in_event ):
 	rtn = {}
 	dbq = db.Subscription.select().where( db.Subscription.event==in_event )
 	for row in dbq:
 		rtn[row.id] = { 'username':row.user.username,'event':row.event,'target_url':row.target_url }
-	return json.jsonify(rtn)
+	return rtn
 
-@app.route( BASEPATH+'/admin/links', methods=['GET'] )
+@app.route( BASEPATH+'/admin/events/<in_event>', methods=['GET'] )
+@auth_required( AUTHLVL.ADMIN )
+def api_admin_list_event_data( in_event ):
+	return jsonify( admin_list_event_data() )
+
+# # # # # # # # # # # # # # # # # # # #
+
 def clean_old_device_tokens():
 	#app.logger.warning( 'cleaning devcodes' )
 	rtn = {}
@@ -90,4 +114,9 @@ def clean_old_device_tokens():
 	rtn['info'] = 'device-codes were cleared'
 	rtn['num'] = n
 	rtn['status'] = 'ok'
-	return json.jsonify(rtn)
+	return rtn
+
+@app.route( BASEPATH+'/admin/links', methods=['GET'] )
+@auth_required( AUTHLVL.ADMIN )
+def api_clean_old_device_tokens():
+	return jsonify( clean_old_device_tokens() )

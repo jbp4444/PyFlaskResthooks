@@ -21,10 +21,10 @@ https://opensource.org/licenses/MIT
 
 """
 
-from flask import g
+#from flask import g
 from peewee import *
 
-from flask_app import app
+from flask_app import app, AUTHLVL
 
 db = SqliteDatabase('db.db')
 
@@ -78,14 +78,18 @@ def close_db(error):
 
 # TODO: remove this prior to production!!
 if( User.get_or_none( User.username=='mossy') == None ):
-	User(username='mossy',password='mossymossy',permissions=7).save()
+	User(username='mossy',password='mossymossy',permissions=AUTHLVL.ADMIN).save()
 if( User.get_or_none( User.username=='oona') == None ):
-	User(username='oona',password='oonaoona',permissions=3).save()
+	User(username='oona',password='oonaoona',permissions=AUTHLVL.USER).save()
 if( User.get_or_none( User.username=='baba') == None ):
-	User(username='baba',password='babababa',permissions=1).save()
+	User(username='baba',password='babababa',permissions=AUTHLVL.USER).save()
 
 import time
 dc = Devcode.get_or_none( Devcode.devcode=='001122')
 if( dc != None ):
 	dc.delete_instance()
 Devcode(devcode='001122',claimed=False,time_create=time.time()).save()
+#dc = Devcode.get_or_none( Devcode.devcode=='abc123')
+#if( dc != None ):
+#	dc.delete_instance()
+#Devcode(devcode='abc123',claimed=False,time_create=time.time()).save()

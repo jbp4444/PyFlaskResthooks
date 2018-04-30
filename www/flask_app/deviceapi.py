@@ -23,8 +23,7 @@ https://opensource.org/licenses/MIT
 
 import uuid
 import time
-import requests
-from flask import Flask, request, abort, g, json
+from flask import Flask, request, abort, g, jsonify
 
 from flask_app import app, BASEPATH, db, auth_required, AUTHLVL
 
@@ -32,11 +31,10 @@ from flask_app import app, BASEPATH, db, auth_required, AUTHLVL
 
 # device generates a random code and posts it to the server
 # server waits for user to confirm it
-@app.route( BASEPATH+'/link/<in_code>', methods=['GET'] )
 def test_device_token( in_code ):
 	# returns true/false if someone has claimed the device-code
 	# TODO: check that originating IP-addr is same?
-	rtn = {}
+	rtn = { 'info':'unknown error', 'status':'error' }
 	time_now = time.time()
 	app.logger.warning( 'looking for devcode='+in_code )
 	dcode = db.Devcode.get_or_none( db.Devcode.devcode==in_code )
@@ -56,14 +54,26 @@ def test_device_token( in_code ):
 		else:
 			rtn['info'] = 'device-code is unclaimed'
 			rtn['status'] = 'retry'
-	return json.jsonify(rtn)
+	return rtn
 
-@app.route( BASEPATH+'/link/', methods=['POST'] )
-def reg_device_code():
-	rtn = {}
-	if( 'authcode' in request.form ):
-		# TODO: store originaing IP-addr in database too?
-		in_devcode = request.form['authcode']
+@app.route( BASEPATH+'/link/<in_code>', methods=['GET'] )
+def api_test_device_token( in_code ):
+	if( request.json != None ):
+		if( 'authcode' in request.json ):
+			devcode = request.json['authcode']
+	if( request.form != None ):
+		if( 'authcode' in request.form ):
+			devcode = request.form['authcode']
+	if( in_code != None ):
+		devcode = in_code
+	return jsonify( test_device_token(devcode) )
+
+# # # # # # # # # # # # # # # # # # # #
+
+# TODO: store originaing IP-addr in database too?
+def reg_device_code( in_devcode=None ):
+	rtn = { 'info':'no device-code given', 'status':'error' }
+	if( in_devcode != None ):
 		time_now = time.time()
 		app.logger.warning( 'registering dev-code='+in_devcode )
 		dcode = db.Devcode.get_or_none( db.Devcode.devcode==in_devcode )
@@ -75,15 +85,26 @@ def reg_device_code():
 			dcode.save()
 			rtn['info'] = 'device-code was registered'
 			rtn['status'] = 'ok'
-	else:
-		rtn['info'] = 'no device-code given'
-		rtn['status'] = 'error'
-	return json.jsonify(rtn)
+	return rtn
 
-def claim_device_code( in_code ):
+@app.route( BASEPATH+'/link/<in_code>', methods=['POST'] )
+def api_reg_device_code( in_code=None ):
+	if( request.json != None ):
+		if( 'authcode' in request.json ):
+			devcode = request.json['authcode']
+	if( request.form != None ):
+		if( 'authcode' in request.form ):
+			devcode = request.form['authcode']
+	if( in_code != None ):
+		devcode = in_code
+	return jsonify( reg_device_code(devcode) )
+
+# # # # # # # # # # # # # # # # # # # #
+
+def claim_device_code( authuser, in_code ):
 	# a user is claiming a device-code
 	# TODO: allow user to name the device that will be attached to this device-key
-	rtn = {}
+	rtn = { 'info':'unknown error', 'status':'error' }
 	time_now = int(time.time())
 	dcode = db.Devcode.get_or_none( db.Devcode.devcode==in_code )
 	if( dcode != None ):
@@ -102,7 +123,7 @@ def claim_device_code( in_code ):
 				dcode.claimed = True
 				dcode.save()
 				new_uuid = uuid.uuid1().hex
-				token = db.Token( token=new_uuid, user=g.auth_user, device_name="foo", time_create=time_now )
+				token = db.Token( token=new_uuid, user=authuser, device_name="foo", time_create=time_now )
 				token.save()
 				rtn['info'] = 'device-code is now claimed'
 				rtn['token'] = new_uuid
@@ -115,4 +136,18 @@ def claim_device_code( in_code ):
 @app.route( BASEPATH+'/activate/<in_code>', methods=['GET'] )
 @auth_required( AUTHLVL.USER )
 def api_claim_device_code( in_code ):
-	return json.jsonify( claim_device_code(in_code) )
+	return jsonify( claim_device_code(g.auth_user,in_code) )
+
+# # # # # # # # # # # # # # # # # # # #
+
+def list_tokens( authuser ):
+	data = []
+	dbq = db.Token.select().where( db.Token.user==authuser )
+	for row in dbq:
+		data.append( { 'token':row.token,'device_name':row.device_name } )
+	return data
+
+@app.route( BASEPATH+'/tokens', methods=['GET'] )
+@auth_required( AUTHLVL.USER )
+def api_list_tokens():
+	return jsonify( list_tokens(authuser) )

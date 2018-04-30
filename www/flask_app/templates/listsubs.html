@@ -6,8 +6,8 @@
 	<h1>Subscriptions for {{ name }}!</h1>
 	<p>
 		<ul>
-			{% for d in data %}
-			  <li>{{ d }}</li>
+			{% for k,v in data.items() %}
+			  <li>{{k}}, {{ v.event }}, {{ v.target_url }}</li>
 			{% endfor %}
 		</ul>
 

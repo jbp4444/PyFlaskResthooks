@@ -21,8 +21,7 @@ https://opensource.org/licenses/MIT
 
 """
 
-import uuid
-from flask import request, abort, g, json, render_template
+from flask import g, render_template
 
 import flask_app
 from flask_app import app, BASEPATH, db, auth_required, AUTHLVL
@@ -35,19 +34,13 @@ def webui_hello():
 @app.route( BASEPATH+'/showsubs')
 @auth_required( AUTHLVL.USER )
 def webui_showsubs():
-	data = []
-	dbq = db.Subscription.select().where( db.Subscription.user==g.auth_user )
-	for row in dbq:
-		data.append( { 'event':row.event,'target_url':row.target_url } )
+	data = flask_app.api.list_subs_full( g.auth_user )
 	return render_template( 'listsubs.html', data=data, name=g.auth_user.username )
 
 @app.route( BASEPATH+'/showdevs')
 @auth_required( AUTHLVL.USER )
 def webui_showdevs():
-	data = []
-	dbq = db.Token.select().where( db.Token.user==g.auth_user )
-	for row in dbq:
-		data.append( { 'token':row.token,'device_name':row.device_name } )
+	data = flask_app.deviceapi.list_tokens( g.auth_user )
 	return render_template( 'listdevs.html', data=data, name=g.auth_user.username )
 
 @app.route( BASEPATH+'/claim' )
@@ -62,6 +55,6 @@ def webui_claim_code():
 	if( 'devcode' in request.form ):
 		devcode = request.form['devcode']
 	app.logger.warning( 'devcode='+devcode )
-	rtn = flask_app.deviceapi.claim_device_code( devcode )
+	rtn = flask_app.deviceapi.claim_device_code( g.auth_user, devcode )
 	app.logger.warning( 'devcode='+devcode+'  rtn='+str(rtn) )
 	return render_template( 'claim_reply.html', claim_reply=rtn, name=g.auth_user.username )

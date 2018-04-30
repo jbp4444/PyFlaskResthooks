@@ -27,15 +27,6 @@ from flask import request, abort, g
 
 from flask_app import app, db
 
-# simple permissions model for "higher-level" functions
-# database holds an integer 'permissions' field, which is bitwise-and of:
-class AUTHLVL:
-	USER = 1
-	DEVELOPER = 2
-	ADMIN = 4
-	# devices use a token
-	DEVICE = 128
-
 # decorator function to test for permissions
 def auth_required( auth_level ):
 	def real_auth_decorator(view_function):
@@ -62,15 +53,15 @@ def auth_required( auth_level ):
 			# auth by device auth (token)?
 			elif( 'X-Device-Token' in request.headers ):
 				hdrtoken = request.headers['X-Device-Token']
-				app.logger.warning( 'found auth token:'+hdrtoken )
+				app.logger.warning( 'found dev-auth token:'+hdrtoken )
 				time_now = int(time.time())
 				token = db.Token.get_or_none( db.Token.token==hdrtoken )
 				if( token != None ):
-					#app.logger.warning( 'token tied to userid='+row['userid'] )
+					app.logger.warning( 'token tied to userid='+token.user.username )
 					time_created = token.time_create
-					if( (time_now-time_created) > app.config['TOKEN_TIMEOUT'] ):
-						# device-token is too old
-						abort(401)
+					#if( (time_now-time_created) > app.config['TOKEN_TIMEOUT'] ):
+					#	# device-token is too old
+					#	abort(401)
 					g.token       = token
 					g.auth_user   = token.user
 					g.auth_userid = token.user.username
@@ -89,7 +80,7 @@ def auth_required( auth_level ):
 			#app.logger.warning( 'found user '+str(g.auth_user) )
 
 			if( g.auth_user!=None ):
-				#app.logger.warning( 'found user '+str(g.auth_user)+','+g.auth_userid+','+str(g.auth_user.permissions) )
+				app.logger.warning( 'found user '+str(g.auth_user)+','+g.auth_userid+','+str(g.auth_user.permissions)+';'+str(auth_level) )
 				if( g.auth_user.permissions >= auth_level ):
 					return view_function(*args,**kwargs)
 

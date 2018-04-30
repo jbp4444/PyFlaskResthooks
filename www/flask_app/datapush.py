@@ -23,7 +23,7 @@ https://opensource.org/licenses/MIT
 
 import time
 import requests
-from flask import request, abort, g, json
+from flask import request, g, jsonify
 
 from flask_app import app, BASEPATH, db, auth_required, AUTHLVL
 
@@ -31,7 +31,7 @@ from flask_app import app, BASEPATH, db, auth_required, AUTHLVL
 
 #
 # push the data to the subscription service (e.g. Zapier)
-def _int_push_data( a_event, a_user, a_data ):
+def _int_push_data( a_user, a_event, a_data ):
 	app.logger.info( 'data-push '+a_event+' on behalf of userid='+a_user.username )
 	# TODO: this changes rtn from hash to list!
 	rtn = []
@@ -45,14 +45,25 @@ def _int_push_data( a_event, a_user, a_data ):
 		# TODO: "If Zapier responds with a 410 status code you should immediately remove the subscription to the failing hook (unsubscribe)."
 	return rtn
 
+def push_data_general( authuser, event=None, data=None ):
+	app.logger.warning( 'push-data-general '+str(event) )
+	rtn = { 'info':'insufficient data', 'status':'error' }
+
+	if( not event in app.config['EVENT_LIST'] ):
+		# TODO: customize the error to indicate bad event name
+		event = None
+
+	if( (event != None) and (data != None) ):
+		rtn = _int_push_data( authuser, event, data )
+	return rtn
+
+# NOTE: we ask for 'USER' level auth, but that should occur by
+#   way of a x-device-token which we map to a user
 @app.route( BASEPATH+'/data/<in_event>', methods=['POST'] )
 @app.route( BASEPATH+'/data/', methods=['POST'] )
-@auth_required( AUTHLVL.DEVICE )
-def push_data_general( in_event=None ):
-	app.logger.warning( 'push-data-general '+str(in_event) )
-	rtn = { 'info':'unknown error', 'status':'error' }
-	event = in_event
-	data = None
+@auth_required( AUTHLVL.USER )
+def api_push_data_general( in_event=None ):
+	# TODO: need to clean this up; maybe define precedence of operations?
 	if( request.json != None ):
 		if( 'event' in request.json ):
 			event = request.json['event']
@@ -63,20 +74,17 @@ def push_data_general( in_event=None ):
 			event = request.form['event']
 		if( 'data' in request.form ):
 			data = request.form['data']
+	if( in_event != None ):
+		event = in_event
+	return jsonify( push_data_general(g.auth_user,event,data) )
 
-	if( not event in app.config['EVENT_LIST'] ):
-		# TODO: customize the error to indicate bad event name
-		event = None
+# # # # # # # # # # # # # # # # # # # #
 
-	if( (event != None) and (data != None) ):
-		authuser = g.auth_user
-		rtn = _int_push_data( event, authuser, data )
-	else:
-		rtn = { 'info':'insufficient data', 'status':'error' }
-	return json.jsonify(rtn)
-
+# TODO: WARNING: this is a dummy placeholder for Zapier testing!
+#   not clear if there is a better way to hack this; or is it a
+#   useful thing to have in the API anyway?
 @app.route( BASEPATH+'/last/', methods=['GET'] )
 @auth_required( AUTHLVL.USER )
 def get_last_event():
 	rtn = [{ 'event':'button', 'button':1, 'timestamp':0 }]
-	return json.jsonify( rtn )
+	return jsonify( rtn )
